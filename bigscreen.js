@@ -22,7 +22,7 @@ function nextPhoto(photos,index) {
         var photo_url = "http://farm" + photos[index].farm + ".static.flickr.com/" + photos[index].server + "/" + photos[index].id + "_" + photos[index].secret + "_b_d.jpg";
         var img = new Image();
         img.src = photo_url;
-        $("body").attr('style',"background:url(" + img.src + ") no-repeat");
+        $("body").attr('style',"background-color:#000000;background:url(" + img.src + ") no-repeat");
         index++;
         nextPhoto(photos,index);
     }, 7000);
