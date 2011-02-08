@@ -101,6 +101,8 @@ Show.prototype = {
     },
     nextPhoto : function() {
         timer = setTimeout(function() {
+	    alert(this.index);
+	    alert(this.photos);
             var photo_url = "http://farm" + this.photos[this.index].farm + ".static.flickr.com/" + this.photos[this.index].server + "/" + this.photos[this.index].id + "_" + this.photos[this.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
