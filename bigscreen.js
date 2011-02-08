@@ -112,6 +112,7 @@ Show.prototype = {
     photoSet : null,
     photos : null,
     preparePage : function() {
+        alert(this.divId);
 	$("body").html('<div id="' + this.divId + '"></div>');
         alert($("body").html());
         this.div = $("#"+this.divId);
