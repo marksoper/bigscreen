@@ -44,20 +44,17 @@ function FlickrLoader(format,
 FlickrLoader.prototype = new Loader();
 FlickrLoader.prototype.constructor = FlickrLoader;
 
-FlickrLoader.prototype.get = function(per_page) {
-
-    # CALLBACK HERE INSTEAD
-
-    timer = setTimeout(function() {
-    $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":this.per_page},
+FlickrLoader.prototype.get = function(show,per_page) {
+    this.ready = false;
+    $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":per_page},
         function(data) {
 	    this.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
             this.res = jQuery.parseJSON(this.data);
             this.photos = this.res.photos.photo;
 	    this.photoSet = new FlickrSet(this.photos);
+	    show.completeLoad(this.photoSet);
 	    return;
 	});
-	}, 5000);
 }
 
 function Show(loader) {
@@ -65,11 +62,15 @@ function Show(loader) {
     this.index = 0;
 }
 
-Show.prototype.load = function(per_page) {
-    this.loader.get(per_page);
-    this.photoSet = this.loader.photoSet;
+Show.prototype.startLoad = function(per_page) {
+    this.loader.get(this,per_page);
+}
+
+Show.prototype.completeLoad = function(photoSet,start=true) {
+    this.photoSet = photoSet;
     this.photoSet.shuffle();
     this.photos = this.photoSet.photos;
+    if (start) this.start();
 }
 
 Show.prototype.start = function() {
