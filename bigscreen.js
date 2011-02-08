@@ -133,7 +133,7 @@ var flickr = new FlickrLoader("json",
 
 var show = new Show(flickr);
 
-alert show.index;
+alert(show.index);
 
 $("body").css('background-color','#000000');
 
