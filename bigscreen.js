@@ -106,7 +106,7 @@ function Show(loader,divId) {
     this.loader = loader;
     this.divId = divId;
     this.index = 0;
-    this.preparePage();
+    /* this.preparePage(); */
     this.fitToScreen();
 }
 
@@ -170,7 +170,7 @@ var flickr = new FlickrLoader("json",
 			      "show"
 			      );
 
-
+prepPage();
 $("body").css('background-color','#000000');
 
 var show = new Show(flickr,"mainShow");
