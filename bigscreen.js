@@ -96,19 +96,7 @@ var show = new Show(flickr);
 
 $("body").css('background-color','#000000');
 
-$.get(url, {"method":method,"api_key":api_key,"format":format,"user_id":user_id,"tags":tags,"per_page":per_page},
-    function(data) {
-        data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
-        var res = jQuery.parseJSON(data);
-        var photos = res.photos.photo;
-        shuffle(photos);
-        index = 0;
-        nextPhoto(photos,index);
-    });
-
-function determineScreenSize() {
-    
-}
+show.start();
 
 
 
