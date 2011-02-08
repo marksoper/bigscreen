@@ -102,8 +102,6 @@ Show.prototype = {
     nextPhoto : function() {
         var thisshow = this;
         timer = setTimeout(function() {
-	    alert(thisshow.index);
-	    alert(thisshow.photos);
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
@@ -133,8 +131,6 @@ var flickr = new FlickrLoader("json",
 			      );
 
 var show = new Show(flickr);
-
-alert(show.index);
 
 $("body").css('background-color','#000000');
 
