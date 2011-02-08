@@ -3,12 +3,22 @@
 var DEFAULT_PER_PAGE = 500;
 var DEFAULT_DELAY = 5000;
 
-function Photo() {
-    Image.call(this);
+function Photo(image) {
+    this.image = image;
 }
 
 Photo.prototype = {
+    image : null
 }
+
+
+function Div() {
+}
+
+Div.prototype = {
+}
+
+
 
 function PhotoSet(photos) {
     this.photos = photos;
@@ -110,7 +120,7 @@ Show.prototype = {
         var thisshow = this;
         timer = setTimeout(function() {
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
-            var img = new Photo();
+            var img = new Image();
             img.src = photo_url;
             $("body").html('"<div style=' + '"width:100%;"' + '><img src="' + img.src + '"></div>'); 
             thisshow.index++;
@@ -124,7 +134,6 @@ Show.prototype = {
 function extend(child, supertype) {
     child.prototype.__proto__ = supertype.prototype;
 }
-extend(Photo, Image);
 extend(FlickrSet, PhotoSet);
 extend(FlickrLoader, PhotoLoader);
 
