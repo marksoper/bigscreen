@@ -16,6 +16,8 @@ function Div() {
 }
 
 Div.prototype = {
+    domId : null,
+    domClass : null
 }
 
 
