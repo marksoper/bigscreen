@@ -133,8 +133,8 @@ Show.prototype = {
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
-	    thisshow.div.innerHtml('<img src="' + img.src + '"/>');
-            $("body").innerHtml(thisshow.div.html());
+	    $(thisshow.div).innerHtml('<img src="' + img.src + '"/>');
+            $("body").innerHtml($(thisshow.div).html());
             thisshow.index++;
             thisshow.nextPhoto();
         }, DEFAULT_DELAY);
