@@ -170,12 +170,12 @@ var flickr = new FlickrLoader("json",
 			      "show"
 			      );
 
-prepPage();
-$("body").css('background-color','#000000');
-
-var show = new Show(flickr,"mainShow");
-
-show.beginLoad(DEFAULT_PER_PAGE);
+$(document).ready(function() {
+    prepPage();
+    $("body").css('background-color','#000000');
+    var show = new Show(flickr,"mainShow");
+    show.beginLoad(DEFAULT_PER_PAGE);
+});
 
 
 
