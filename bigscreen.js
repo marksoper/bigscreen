@@ -102,8 +102,8 @@ var show = new Show(flickr);
 
 $("body").css('background-color','#000000');
 
-show.load(DEFAULT_PER_PAGE);
-show.start();
+show.startLoad(DEFAULT_PER_PAGE);
+
 
 
 
