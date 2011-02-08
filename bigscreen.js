@@ -7,7 +7,7 @@ function PhotoSet(photos) {
     this.photos = photos;
 }
 
-PhotoSet.prototype.shuffle() = function {
+PhotoSet.prototype.shuffle = function() {
     var i = this.photos.length;
     if ( i == 0 ) return false;
     while ( --i ) {
@@ -60,17 +60,17 @@ function Show(loader) {
     this.index = 0;
 }
 
-Show.prototype.load() = function {
+Show.prototype.load = function() {
     this.photoSet = this.loader.get(DEFAULT_PER_PAGE);
     this.photoSet.shuffle();
     this.photos = this.photoSet.photos;
 }
 
-Show.prototype.start() = function {
+Show.prototype.start = function() {
     this.nextPhoto();
 }
 
-show.prototype.nextPhoto() = function {
+Show.prototype.nextPhoto = function() {
     timer = setTimeout(function() {
         var photo_url = "http://farm" + this.photos[this.index].farm + ".static.flickr.com/" + this.photos[this.index].server + "/" + this.photos[this.index].id + "_" + this.photos[this.index].secret + "_b_d.jpg";
         var img = new Image();
@@ -96,6 +96,7 @@ var show = new Show(flickr);
 
 $("body").css('background-color','#000000');
 
+show.load();
 show.start();
 
 
