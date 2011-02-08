@@ -1,11 +1,46 @@
 
-var format = "json"
-var api_key = "ff4f40b52906a3fae2961e17739db037"
-var url = "http://api.flickr.com/services/rest/"
-var method = "flickr.photos.search"
-var user_id= "10938641@N05" 
-var tags = "show"
-var per_page = "500"
+function Loader() {
+    
+}
+
+function FlickrLoader(format,
+		      api_key,
+		      url,
+		      method,
+		      user_id,
+		      tags) {
+    this.format = format;
+    this.api_key = api_key;
+    this.url = url;
+    this.method = method;
+    this.user_id = user_id;
+    this.tags = tags;
+}
+FlickrLoader.prototype = new Loader();
+FlickrLoader.prototype.constructor = FlickrLoader;
+
+FlickrLoader.prototype.get = function(per_page) {
+    $.get(this.url, {"method":method,"api_key":api_key,"format":format,"user_id":user_id,"tags":tags,"per_page":per_page},
+        function(data) {
+	    data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
+            var res = jQuery.parseJSON(data);
+            var photos = res.photos.photo;
+	    var photoSet = new FlickrSet(
+	}      
+}
+
+function Show() {}
+
+
+var flickr = new FlickrLoader(format = "json",
+			      api_key = "ff4f40b52906a3fae2961e17739db037",
+			      url = "http://api.flickr.com/services/rest/",
+			      method = "flickr.photos.search",
+			      user_id= "10938641@N05",
+			      tags = "show",
+			      per_page = "500"
+			      )
+
 
 $("body").css('background-color','#000000');
 
@@ -18,6 +53,10 @@ $.get(url, {"method":method,"api_key":api_key,"format":format,"user_id":user_id,
         index = 0;
         nextPhoto(photos,index);
     });
+
+function determineScreenSize() {
+    
+}
 
 function nextPhoto(photos,index) {
     timer = setTimeout(function() {
