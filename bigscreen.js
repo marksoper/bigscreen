@@ -52,7 +52,7 @@ FlickrLoader.prototype.get = function(per_page) {
             var photos = res.photos.photo;
 	    var photoSet = new FlickrSet(photos);
 	    return photoSet;
-	}      
+	});
 }
 
 function Show(loader) {
