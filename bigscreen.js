@@ -7,6 +7,8 @@ var user_id= "10938641@N05"
 var tags = "show"
 var per_page = "500"
 
+$("body").css('background-color','#000000');
+
 $.get(url, {"method":method,"api_key":api_key,"format":format,"user_id":user_id,"tags":tags,"per_page":per_page},
     function(data) {
         data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
@@ -22,7 +24,7 @@ function nextPhoto(photos,index) {
         var photo_url = "http://farm" + photos[index].farm + ".static.flickr.com/" + photos[index].server + "/" + photos[index].id + "_" + photos[index].secret + "_b_d.jpg";
         var img = new Image();
         img.src = photo_url;
-        $("body").attr('style',"background-color:#000000;background:url(" + img.src + ") no-repeat");
+        $("body").html('"<div><img src="' + img.src + '"></div>'); 
         index++;
         nextPhoto(photos,index);
     }, 7000);
