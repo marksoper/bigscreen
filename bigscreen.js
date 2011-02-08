@@ -45,6 +45,9 @@ FlickrLoader.prototype = new Loader();
 FlickrLoader.prototype.constructor = FlickrLoader;
 
 FlickrLoader.prototype.get = function(per_page) {
+
+    # CALLBACK HERE INSTEAD
+
     timer = setTimeout(function() {
     $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":this.per_page},
         function(data) {
