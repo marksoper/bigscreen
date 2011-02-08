@@ -47,10 +47,10 @@ FlickrLoader.prototype.constructor = FlickrLoader;
 FlickrLoader.prototype.get = function(per_page) {
     $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":this.per_page},
         function(data) {
-	    data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
-            this.res = jQuery.parseJSON(data);
-            this.photos = res.photos.photo;
-	    this.photoSet = new FlickrSet(photos);
+	    this.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
+            this.res = jQuery.parseJSON(this.data);
+            this.photos = this.res.photos.photo;
+	    this.photoSet = new FlickrSet(this.photos);
 	    return;
 	});
 }
