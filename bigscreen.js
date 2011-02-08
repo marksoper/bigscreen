@@ -45,6 +45,7 @@ FlickrLoader.prototype = new Loader();
 FlickrLoader.prototype.constructor = FlickrLoader;
 
 FlickrLoader.prototype.get = function(per_page) {
+    timer = setTimeout(function() {
     $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":this.per_page},
         function(data) {
 	    this.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
@@ -53,6 +54,7 @@ FlickrLoader.prototype.get = function(per_page) {
 	    this.photoSet = new FlickrSet(this.photos);
 	    return;
 	});
+	}, 5000);
 }
 
 function Show(loader) {
