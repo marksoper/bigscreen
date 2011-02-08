@@ -96,16 +96,25 @@ FlickrLoader.prototype = {
 
 
 
-function Show(loader) {
+function Show(loader,divId) {
     this.loader = loader;
+    this.divId = divId;
+    this.div = $("#divId");
     this.index = 0;
+    this.fitToScreen();
 }
 
 Show.prototype = {
     loader : null,
+    divId : null,
+    div : null,
     index : null,
     photoSet : null,
     photos : null,
+    fitToScreen : function() {
+	$(this.div).css({"width" : (window.screen.availWidth - 80) + "px",
+			 "margin" : "30px auto" } );
+    },
     beginLoad : function(per_page) {
         this.loader.get(this,per_page);
     },
@@ -149,7 +158,7 @@ var flickr = new FlickrLoader("json",
 			      "show"
 			      );
 
-var show = new Show(flickr);
+var show = new Show(flickr,"mainShow");
 
 $("body").css('background-color','#000000');
 
