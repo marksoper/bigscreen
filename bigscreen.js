@@ -94,6 +94,12 @@ FlickrLoader.prototype = {
 
 
 
+function prepPage() {
+    var msid = "mainShow";
+    emptyMainShow = '<div id="' + msid + '"></div>';
+    $('body').html(emptyMainShow);
+}
+
 
 
 function Show(loader,divId) {
@@ -112,7 +118,7 @@ Show.prototype = {
     photoSet : null,
     photos : null,
     preparePage : function() {
-	emptyMainShow = '<div id="' + this.divId + '"></div>';
+	var emptyMainShow = '<div id="' + this.divId + '"></div>';
 	$('body').html(emptyMainShow);
         this.div = $("#"+this.divId);
 	return;
