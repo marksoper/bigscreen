@@ -99,7 +99,7 @@ FlickrLoader.prototype = {
 function Show(loader,divId) {
     this.loader = loader;
     this.divId = divId;
-    this.div = $("#divId");
+    this.div = $("#"+this.divId);
     this.index = 0;
     this.fitToScreen();
 }
@@ -133,7 +133,8 @@ Show.prototype = {
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
-            $("body").html('"<div style=' + '"width:100%;"' + '><img src="' + img.src + '"></div>'); 
+	    thisshow.div.innerHtml('<img src="' + img.src + '"/>');
+            $("body").innerHtml(thisshow.div.html());
             thisshow.index++;
             thisshow.nextPhoto();
         }, DEFAULT_DELAY);
