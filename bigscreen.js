@@ -99,8 +99,8 @@ FlickrLoader.prototype = {
 function Show(loader,divId) {
     this.loader = loader;
     this.divId = divId;
-    this.div = $("#"+this.divId);
     this.index = 0;
+    this.preparePage();
     this.fitToScreen();
 }
 
@@ -111,6 +111,10 @@ Show.prototype = {
     index : null,
     photoSet : null,
     photos : null,
+    preparePage : function() {
+	$("body").html('<div id="' + this.divId + '"></div>');
+        this.div = $("#"+this.divId);
+    },
     fitToScreen : function() {
 	$(this.div).css({"width" : (window.screen.availWidth - 80) + "px",
 			 "margin" : "30px auto" } );
@@ -134,7 +138,6 @@ Show.prototype = {
             var img = new Image();
             img.src = photo_url;
 	    $(thisshow.div).html('<img src="' + img.src + '"/>');
-            $("body").html($(thisshow.div).outerHTML());
             thisshow.index++;
             thisshow.nextPhoto();
         }, DEFAULT_DELAY);
