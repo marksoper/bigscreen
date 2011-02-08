@@ -22,7 +22,7 @@ PhotoSet.prototype.shuffle = function() {
 
 function FlickrSet(photos) {
 }
-FlickrSet.prototype = new PhotoSet();
+FlickrSet.prototype = new PhotoSet(photos);
 FlickrSet.prototype.constructor = FlickrSet;
 
 function Loader() {
