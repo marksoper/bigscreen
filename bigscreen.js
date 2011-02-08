@@ -84,6 +84,9 @@ function Show(loader) {
 
 Show.prototype = {
     loader : null,
+    index : null,
+    photoSet : null,
+    photos : null,
     beginLoad : function(per_page) {
         this.loader.get(this,per_page);
     },
