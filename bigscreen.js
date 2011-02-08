@@ -112,8 +112,8 @@ Show.prototype = {
     photoSet : null,
     photos : null,
     preparePage : function() {
-	$('body')[0].html('<div id="' + this.divId + '"></div>');
-        alert($('body')[0]);
+	/* $('body').html('<div id="' + this.divId + '"></div>'); */
+        alert($('body'));
         this.div = $("#"+this.divId);
     },
     fitToScreen : function() {
