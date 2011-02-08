@@ -106,7 +106,7 @@ function Show(loader,divId) {
     this.loader = loader;
     this.divId = divId;
     this.index = 0;
-    this.preparePage(); */
+    this.preparePage();
     this.fitToScreen();
 }
 
