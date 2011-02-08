@@ -114,18 +114,20 @@ Show.prototype = {
     loader : null,
     divId : null,
     div : null,
+    photo : null,
     index : null,
     photoSet : null,
     photos : null,
     preparePage : function() {
-	var emptyMainShow = '<div id="' + this.divId + '"></div>';
+	var emptyMainShow = '<div id="' + this.divId + '"><img id="mainPhoto" src="" /></div>';
 	$('body').html(emptyMainShow);
         this.div = $("#"+this.divId);
-	return;
+	this.photo = $("#mainPhoto");
     },
     fitToScreen : function() {
-	$(this.div).css({"width" : (window.screen.availWidth - 280) + "px",
+	$(this.div).css({"width" : (window.screen.availWidth - 80) + "px",
 			 "margin" : "30px auto" } );
+	$(this.photo).css({"width" : (window.screen.availWidth - 82) + "px"});
     },
     beginLoad : function(per_page) {
         this.loader.get(this,per_page);
