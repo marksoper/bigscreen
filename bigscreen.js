@@ -60,8 +60,8 @@ function Show(loader) {
     this.index = 0;
 }
 
-Show.prototype.load = function() {
-    this.loader.get(DEFAULT_PER_PAGE);
+Show.prototype.load = function(per_page) {
+    this.loader.get(per_page);
     this.photoSet = this.loader.photoSet;
     this.photoSet.shuffle();
     this.photos = this.photoSet.photos;
@@ -84,20 +84,19 @@ Show.prototype.nextPhoto = function() {
 
 
 
-var flickr = new FlickrLoader(format = "json",
-			      api_key = "ff4f40b52906a3fae2961e17739db037",
-			      url = "http://api.flickr.com/services/rest/",
-			      method = "flickr.photos.search",
-			      user_id= "10938641@N05",
-			      tags = "show",
-			      per_page = "500"
+var flickr = new FlickrLoader("json",
+			      "ff4f40b52906a3fae2961e17739db037",
+			      "http://api.flickr.com/services/rest/",
+			      "flickr.photos.search",
+			      "10938641@N05",
+			      "show"
 			      );
 
 var show = new Show(flickr);
 
 $("body").css('background-color','#000000');
 
-show.load();
+show.load(DEFAULT_PER_PAGE);
 show.start();
 
 
