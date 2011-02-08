@@ -52,7 +52,7 @@ FlickrLoader.prototype.get = function(show,per_page) {
             this.res = jQuery.parseJSON(this.data);
             this.photos = this.res.photos.photo;
 	    this.photoSet = new FlickrSet(this.photos);
-	    show.completeLoad(this.photoSet);
+	    show.completeLoad(this.photoSet,true);
 	    return;
 	});
 }
@@ -66,7 +66,7 @@ Show.prototype.startLoad = function(per_page) {
     this.loader.get(this,per_page);
 }
 
-Show.prototype.completeLoad = function(photoSet,start=true) {
+Show.prototype.completeLoad = function(photoSet,start) {
     this.photoSet = photoSet;
     this.photoSet.shuffle();
     this.photos = this.photoSet.photos;
