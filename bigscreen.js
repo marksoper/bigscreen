@@ -147,7 +147,7 @@ Show.prototype = {
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
-	    this.photo.attr("src",img.src);
+	    thisshow.photo.attr("src",img.src);
 	    /* $(thisshow.div).html('<img src="' + img.src + '"/>'); */
             thisshow.index++;
             thisshow.nextPhoto();
