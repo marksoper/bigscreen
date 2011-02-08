@@ -112,8 +112,12 @@ Show.prototype = {
     photoSet : null,
     photos : null,
     preparePage : function() {
-	/* $('body').html('<div id="' + this.divId + '"></div>'); */
+  
+	emptyMainShow = '<div id="' + this.divId + '"></div>';
+	alert(emptyMainShow);
         alert($('body').html());
+	$('body').html(emptyMainShow);
+	alert($('body').html());
         this.div = $("#"+this.divId);
     },
     fitToScreen : function() {
