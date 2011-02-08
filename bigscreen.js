@@ -24,7 +24,7 @@ function nextPhoto(photos,index) {
         var photo_url = "http://farm" + photos[index].farm + ".static.flickr.com/" + photos[index].server + "/" + photos[index].id + "_" + photos[index].secret + "_b_d.jpg";
         var img = new Image();
         img.src = photo_url;
-        $("body").html('"<div><img src="' + img.src + '"></div>'); 
+        $("body").html('"<div style=' + '"width:100%;"' + '><img src="' + img.src + '"></div>'); 
         index++;
         nextPhoto(photos,index);
     }, 7000);
