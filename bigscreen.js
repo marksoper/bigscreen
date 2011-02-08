@@ -127,6 +127,7 @@ Show.prototype = {
     fitToScreen : function() {
 	$(this.div).css({"width" : (window.screen.availWidth - 80) + "px",
 			 "margin" : "30px auto" } );
+        alert(this.photo);
 	$(this.photo).css({"width" : (window.screen.availWidth - 82) + "px"});
     },
     beginLoad : function(per_page) {
