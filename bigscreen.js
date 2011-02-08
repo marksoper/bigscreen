@@ -116,7 +116,7 @@ Show.prototype = {
 	emptyMainShow = '<div id="' + this.divId + '"></div>';
 	alert(emptyMainShow);
         alert($('body').html());
-	$('body').html(emptyMainShow);
+	$('body').html("blah");
 	alert($('body').html());
         this.div = $("#"+this.divId);
     },
