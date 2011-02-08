@@ -167,9 +167,10 @@ var flickr = new FlickrLoader("json",
 			      "show"
 			      );
 
-var show = new Show(flickr,"mainShow");
 
-/* $("body").css('background-color','#000000'); */
+$("body").css('background-color','#000000');
+
+var show = new Show(flickr,"mainShow");
 
 show.beginLoad(DEFAULT_PER_PAGE);
 
