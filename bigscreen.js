@@ -133,6 +133,8 @@ var flickr = new FlickrLoader("json",
 
 var show = new Show(flickr);
 
+alert show.index;
+
 $("body").css('background-color','#000000');
 
 show.beginLoad(DEFAULT_PER_PAGE);
