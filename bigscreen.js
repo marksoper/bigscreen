@@ -100,15 +100,16 @@ Show.prototype = {
         this.nextPhoto();
     },
     nextPhoto : function() {
+        var thisshow = this;
         timer = setTimeout(function() {
-	    alert(this.index);
-	    alert(this.photos);
-            var photo_url = "http://farm" + this.photos[this.index].farm + ".static.flickr.com/" + this.photos[this.index].server + "/" + this.photos[this.index].id + "_" + this.photos[this.index].secret + "_b_d.jpg";
+	    alert(thisshow.index);
+	    alert(thisshow.photos);
+            var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
             $("body").html('"<div style=' + '"width:100%;"' + '><img src="' + img.src + '"></div>'); 
-            this.index++;
-            this.nextPhoto();
+            thisshow.index++;
+            thisshow.nextPhoto();
         }, DEFAULT_DELAY);
     }
 }
