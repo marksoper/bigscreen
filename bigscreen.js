@@ -48,10 +48,10 @@ FlickrLoader.prototype.get = function(per_page) {
     $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":this.per_page},
         function(data) {
 	    data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
-            var res = jQuery.parseJSON(data);
-            var photos = res.photos.photo;
-	    var photoSet = new FlickrSet(photos);
-	    return photoSet;
+            this.res = jQuery.parseJSON(data);
+            this.photos = res.photos.photo;
+	    this.photoSet = new FlickrSet(photos);
+	    return;
 	});
 }
 
@@ -61,7 +61,8 @@ function Show(loader) {
 }
 
 Show.prototype.load = function() {
-    this.photoSet = this.loader.get(DEFAULT_PER_PAGE);
+    this.loader.get(DEFAULT_PER_PAGE);
+    this.photoSet = this.loader.photoSet;
     this.photoSet.shuffle();
     this.photos = this.photoSet.photos;
 }
