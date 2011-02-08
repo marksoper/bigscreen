@@ -113,8 +113,8 @@ Show.prototype = {
     photos : null,
     preparePage : function() {
         alert(this.divId);
-	var bodhtml = $("body").html();
-	alert(bodhtml);
+	var bod = $('body').html();
+	alert(bod.css());
 	/* $("body").html('<div id="' + this.divId + '"></div>');  */
         alert($("body").html());
         this.div = $("#"+this.divId);
