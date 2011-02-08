@@ -1,6 +1,31 @@
 
+
+var DEFAULT_PER_PAGE = 500;
+
+
+function PhotoSet(photos) {
+    this.photos = photos;
+}
+
+PhotoSet.prototype.shuffle() = function {
+    var i = this.photos.length;
+    if ( i == 0 ) return false;
+    while ( --i ) {
+       var j = Math.floor( Math.random() * ( i + 1 ) );
+       var tempi = this.photos[i];
+       var tempj = this.photos[j];
+       this.photos[i] = tempj;
+       this.photos[j] = tempi;
+     }
+}
+
+
+function FlickrSet(photos) {
+}
+FlickrSet.prototype = new PhotoSet();
+FlickrSet.prototype.constructor = FlickrSet;
+
 function Loader() {
-    
 }
 
 function FlickrLoader(format,
@@ -20,16 +45,42 @@ FlickrLoader.prototype = new Loader();
 FlickrLoader.prototype.constructor = FlickrLoader;
 
 FlickrLoader.prototype.get = function(per_page) {
-    $.get(this.url, {"method":method,"api_key":api_key,"format":format,"user_id":user_id,"tags":tags,"per_page":per_page},
+    $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":this.per_page},
         function(data) {
 	    data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
             var res = jQuery.parseJSON(data);
             var photos = res.photos.photo;
-	    var photoSet = new FlickrSet(
+	    var photoSet = new FlickrSet(photos);
+	    return photoSet;
 	}      
 }
 
-function Show() {}
+function Show(loader) {
+    this.loader = loader;
+    this.index = 0;
+}
+
+Show.prototype.load() = function {
+    this.photoSet = this.loader.get(DEFAULT_PER_PAGE);
+    this.photoSet.shuffle();
+    this.photos = this.photoSet.photos;
+}
+
+Show.prototype.start() = function {
+    this.nextPhoto();
+}
+
+show.prototype.nextPhoto() = function {
+    timer = setTimeout(function() {
+        var photo_url = "http://farm" + this.photos[this.index].farm + ".static.flickr.com/" + this.photos[this.index].server + "/" + this.photos[this.index].id + "_" + this.photos[this.index].secret + "_b_d.jpg";
+        var img = new Image();
+        img.src = photo_url;
+        $("body").html('"<div style=' + '"width:100%;"' + '><img src="' + img.src + '"></div>'); 
+        this.index++;
+        this.nextPhoto();
+    }, 7000);
+}
+
 
 
 var flickr = new FlickrLoader(format = "json",
@@ -39,8 +90,9 @@ var flickr = new FlickrLoader(format = "json",
 			      user_id= "10938641@N05",
 			      tags = "show",
 			      per_page = "500"
-			      )
+			      );
 
+var show = new Show(flickr);
 
 $("body").css('background-color','#000000');
 
@@ -58,27 +110,6 @@ function determineScreenSize() {
     
 }
 
-function nextPhoto(photos,index) {
-    timer = setTimeout(function() {
-        var photo_url = "http://farm" + photos[index].farm + ".static.flickr.com/" + photos[index].server + "/" + photos[index].id + "_" + photos[index].secret + "_b_d.jpg";
-        var img = new Image();
-        img.src = photo_url;
-        $("body").html('"<div style=' + '"width:100%;"' + '><img src="' + img.src + '"></div>'); 
-        index++;
-        nextPhoto(photos,index);
-    }, 7000);
-}
 
-function shuffle ( ls ) {
-    var i = ls.length;
-    if ( i == 0 ) return false;
-    while ( --i ) {
-       var j = Math.floor( Math.random() * ( i + 1 ) );
-       var tempi = ls[i];
-       var tempj = ls[j];
-       ls[i] = tempj;
-       ls[j] = tempi;
-     }
-}
 
 
