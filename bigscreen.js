@@ -124,7 +124,7 @@ Show.prototype = {
 	return;
     },
     fitToScreen : function() {
-	$(this.div).css({"width" : (window.screen.availWidth - 80) + "px",
+	$(this.div).css({"width" : (window.screen.availWidth - 280) + "px",
 			 "margin" : "30px auto" } );
     },
     beginLoad : function(per_page) {
