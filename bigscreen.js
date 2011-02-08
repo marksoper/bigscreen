@@ -116,7 +116,7 @@ Show.prototype = {
 	var bod = $("body");
 	var bodhtml = bod.html();
 	alert(bodhtml);
-	##$("body").html('<div id="' + this.divId + '"></div>');
+	/* $("body").html('<div id="' + this.divId + '"></div>');  */
         alert($("body").html());
         this.div = $("#"+this.divId);
     },
