@@ -147,8 +147,12 @@ Show.prototype = {
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
+	    thisshow.photo.css("display","none");
 	    thisshow.photo.attr("src",img.src);
-	    alert("height: " + img.clientHeight + " width: " + img.clientWidth);
+	    var height = thisshow.photo.clientHeight;
+	    var width = thisshow.photo.clientWidth;
+	    alert(height + "," + width);
+	    thisshow.photo.css("display","block");
             thisshow.index++;
             thisshow.nextPhoto();
         }, DEFAULT_DELAY);
