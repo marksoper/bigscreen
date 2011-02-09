@@ -149,8 +149,12 @@ Show.prototype = {
             img.src = photo_url;
 	    thisshow.photo.css("display","none");
 	    thisshow.photo.attr("src",img.src);
+
+	    /* not reliable - need better way */
 	    var height = thisshow.photo.height();
 	    var width = thisshow.photo.width();
+
+
 	    alert(height + "," + width);
 	    if (height > width) {
 	        thisshow.photo.css({"width" : "none", "height" : window.screen.availHeight - 80 + "px"}); }
