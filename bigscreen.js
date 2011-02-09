@@ -151,8 +151,9 @@ Show.prototype = {
 	    thisshow.photo.attr("src",img.src);
 	    var height = thisshow.photo.height();
 	    var width = thisshow.photo.width();
+	    alert(height + "," + width);
 	    if (height > width) {
-	        thisshow.photo.css({"width" : "none", "height" : window.screen.availHeight - 80}); }
+	        thisshow.photo.css({"width" : "none", "height" : window.screen.availHeight - 80 + "px"}); }
 	    else {
 		thisshow.photo.css({"width" : (window.screen.availWidth - 162) + "px", "height" : "none" });
             }
