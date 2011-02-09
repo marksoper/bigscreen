@@ -152,9 +152,9 @@ Show.prototype = {
 	    var height = thisshow.photo.height();
 	    var width = thisshow.photo.width();
 	    if (height > width) {
-	        thisshow.photo.css({"width" : none, "height" : window.screen.availHeight - 80}); }
+	        thisshow.photo.css({"width" : "none", "height" : window.screen.availHeight - 80}); }
 	    else {
-		thisshow.photo.css({"width" : (window.screen.availWidth - 162) + "px", "height" : none });
+		thisshow.photo.css({"width" : (window.screen.availWidth - 162) + "px", "height" : "none" });
             }
 	    thisshow.photo.css("display","block");
             thisshow.index++;
