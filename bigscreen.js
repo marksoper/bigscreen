@@ -79,7 +79,7 @@ FlickrLoader.prototype = {
     tags : null,
     get : function(show,per_page) {
         this.ready = false;
-        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":per_page},
+        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":per_page,"o_dims":"true"},
             function(data) {
 	        this.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
                 this.res = jQuery.parseJSON(this.data);
