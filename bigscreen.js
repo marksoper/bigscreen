@@ -5,12 +5,24 @@ var DEFAULT_DELAY = 5000;
 
 var SHOW_HTML = '<div id="mainShow"><div id="screenA" class="screen"></div><div id="screenB" class="screen"></div></div>'
 
-function Photo(image) {
-    this.image = image;
+    function Photo(originalId,originalSource,originalUrl,originalOwner,originalTitle) {
+    this.originalId = originalId;
+    this.originalSource = originalSource;
+    this.originalUrl = originalUrl;
+    this.originalOwner = originalOwner;
+    this.originalTitle = originalTitle;
 }
 
 Photo.prototype = {
-    image : null
+    originalId : null,
+    originalSource : null,
+    originalUrl : null,
+    originalOwner : null,
+    originalTitle : null,
+    originalNotOrientedWidth : null,
+    originalNotOrientedHeight : null,
+    url : null,
+    img : null
 }
 
 
@@ -79,6 +91,14 @@ FlickrLoader.prototype = {
     method : null,
     user_id : null,
     tags : null,
+    buildUrl : function(flickr_photo) {
+	return "http://farm" + flickr_photo.farm + ".static.flickr.com/" + flickr_photo.server + "/" + flickr_photo.id + "_" + flickr_photo.secret + "_b_d.jpg";
+    },
+    buildPhoto : function(flickr_photo) {
+	var photo = new Photo(flickr_photo.id,"Flickr",this.buildUrl(flickr_photo),flickr_photo.owner);
+	photo.originalNotOrientedWidth = flickr_photo.o_width;
+	photo.originalNotOrientedHeight = flickr_photo.o_height;
+    },
     get : function(show,per_page) {
         this.ready = false;
         $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":per_page,"extras":"o_dims"},
@@ -96,17 +116,27 @@ FlickrLoader.prototype = {
 
 
 
-function prepPage() {
-    var msid = "mainShow";
-    emptyMainShow = '<div id="' + msid + '"></div>';
-    $('body').html(emptyMainShow);
+function Screen(divId) {
+    this.div = $("#"+divId);
+    this.photos = [];
 }
 
+Screen.prototype = {
+    div : null,
+    photos : null,
+    visible : null,
+    addPhoto : function(photo) {
+	if (this.photos.length == 0) {
+            this.photos = [photo];
+	    $(this.div).html('<img src="
+	}
+        $('body').html(SHOW_HTML);
+    },
 
 
-function Show(loader,divId) {
+
+function Show(loader) {
     this.loader = loader;
-    this.divId = divId;
     this.index = 0;
     this.preparePage();
     this.fitToScreen();
@@ -114,17 +144,12 @@ function Show(loader,divId) {
 
 Show.prototype = {
     loader : null,
-    divId : null,
-    div : null,
     photo : null,
     index : null,
     photoSet : null,
     photos : null,
     preparePage : function() {
-	var emptyMainShow = '<div id="' + this.divId + '"><img id="mainPhoto" src="" /></div>';
-	$('body').html(emptyMainShow);
-        this.div = $("#"+this.divId);
-	this.photo = $("#mainPhoto");
+        $('body').html(SHOW_HTML);
     },
     fitToScreen : function() {
 	$(this.div).css({"width" : (window.screen.availWidth - 160) + "px",
@@ -149,7 +174,6 @@ Show.prototype = {
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
-	    alert(img.width + 'x' + img.height);
 	    thisshow.photo.css("display","none");
 	    thisshow.photo.attr("src",img.src);
 
