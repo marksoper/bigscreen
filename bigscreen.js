@@ -153,6 +153,7 @@ function Show(loader,divId) {
 Show.prototype = {
     loader : null,
     divId : null,
+    div : null,
     photo : null,
     index : null,
     photoSet : null,
@@ -160,6 +161,7 @@ Show.prototype = {
     screens : null,
     preparePage : function() {
         $('body').html(SHOW_HTML);
+	this.div = $("#"+this.divId);
     },
     fitToWindow : function() {
 	$(this.div).css({"width" : (window.screen.availWidth - 160) + "px",
@@ -182,18 +184,11 @@ Show.prototype = {
         var thisshow = this;
         timer = setTimeout(function() {
 	    var screen = new Screen();
-            img.src = photo_url;
-	    thisshow.photo.css("display","none");
-	    thisshow.photo.attr("src",img.src);
-
-	    /* not reliable - need better way */
-	    var height = thisshow.photo.height();
-	    var width = thisshow.photo.width();
-	    if (height > width) {
-	        thisshow.photo.css({"width" : "none", "height" : window.screen.availHeight - 80 + "px"}); }
-	    else {
-		thisshow.photo.css({"width" : (window.screen.availWidth - 162) + "px", "height" : "none" });
-            }
+	    screen.setPhoto(thisshow.photos[index]);
+	    screen.visible = true;
+	    screen.divHtml = '<div id="' + screen.id + '">' + screen.div.html() + '</div>'
+	    thisshow.div.html(thisshow.div.html() + screen.;
+	    thisshow.photo.css({"width" : (window.screen.availWidth - 162) + "px", "height" : "none" });
 	    thisshow.photo.css("display","block");
             thisshow.index++;
             thisshow.nextScreen();
