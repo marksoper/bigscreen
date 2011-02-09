@@ -149,9 +149,13 @@ Show.prototype = {
             img.src = photo_url;
 	    thisshow.photo.css("display","none");
 	    thisshow.photo.attr("src",img.src);
-	    var height = thisshow.photo.clientHeight;
-	    var width = thisshow.photo.clientWidth;
-	    alert(height + "," + width);
+	    var height = thisshow.photo.height();
+	    var width = thisshow.photo.width();
+	    if (height > width) then {
+	        thisshow.photo.css({"width" : none, "height" : window.screen.availHeight - 80}); }
+	    else {
+		thisshow.photo.css({"width" : (window.screen.availWidth - 162) + "px", "height" : none });
+            }
 	    thisshow.photo.css("display","block");
             thisshow.index++;
             thisshow.nextPhoto();
