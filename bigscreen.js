@@ -125,9 +125,9 @@ Show.prototype = {
 	this.photo = $("#mainPhoto");
     },
     fitToScreen : function() {
-	$(this.div).css({"width" : (window.screen.availWidth - 80) + "px",
+	$(this.div).css({"width" : (window.screen.availWidth - 160) + "px",
 			 "margin" : "30px auto" } );
-	$(this.photo).css({"width" : (window.screen.availWidth - 82) + "px"});
+	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
     },
     beginLoad : function(per_page) {
         this.loader.get(this,per_page);
