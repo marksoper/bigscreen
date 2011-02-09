@@ -3,6 +3,8 @@
 var DEFAULT_PER_PAGE = 500;
 var DEFAULT_DELAY = 5000;
 
+var SHOW_HTML = '<div id="mainShow"><div id="screenA" class="screen"></div><div id="screenB" class="screen"></div></div>'
+
 function Photo(image) {
     this.image = image;
 }
@@ -147,15 +149,13 @@ Show.prototype = {
             var photo_url = "http://farm" + thisshow.photos[thisshow.index].farm + ".static.flickr.com/" + thisshow.photos[thisshow.index].server + "/" + thisshow.photos[thisshow.index].id + "_" + thisshow.photos[thisshow.index].secret + "_b_d.jpg";
             var img = new Image();
             img.src = photo_url;
+	    alert(img.width + 'x' + img.height);
 	    thisshow.photo.css("display","none");
 	    thisshow.photo.attr("src",img.src);
 
 	    /* not reliable - need better way */
 	    var height = thisshow.photo.height();
 	    var width = thisshow.photo.width();
-
-
-	    alert(height + "," + width);
 	    if (height > width) {
 	        thisshow.photo.css({"width" : "none", "height" : window.screen.availHeight - 80 + "px"}); }
 	    else {
