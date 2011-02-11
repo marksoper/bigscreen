@@ -5,6 +5,28 @@ var DEFAULT_DELAY = 5000;
 var SHOW_DIV_ID = "mainShow";
 var SHOW_HTML = '<div id="' + SHOW_DIV_ID + '"></div>'
 
+/* ------------------------------------------------- */
+/* Observable borrowed from: http://blog.jcoglan.com/2010/02/22/evented-programming-patterns-observable-object/ */
+
+Observable = {
+    on: function(eventType, listener, scope) {
+	this._listeners = this._listeners || {};
+	var list = this._listeners[eventType] = this._listeners[eventType] || [];
+	list.push([listener, scope]);
+    },
+    trigger: function(eventType, args) {
+	if (!this._listeners) return;
+	var list = this._listeners[eventType];
+	if (!list) return;
+	list.forEach(function(listener) {
+		listener[0].apply(listener[1], args);
+	    });
+    }
+};
+
+/* ------------------------------------------------- */
+
+
 function Photo(originalId,originalSource,originalUrl,originalOwner,originalTitle) {
     this.originalId = originalId;
     this.originalSource = originalSource;
@@ -29,23 +51,18 @@ Photo.prototype = {
 }
 
 
-function Div() {
-}
-
-Div.prototype = {
-    domId : null,
-    domClass : null
-}
-
+/* ------------------------------------------------- */
 
 
 function PhotoSet(photos) {
     this.photos = photos;
+    this.screens = [];
 }
 
 PhotoSet.prototype = {
     photos : null,
-    shuffle : function() {
+    screens : null,
+    shufflePhotos : function() {
         var i = this.photos.length;
         if ( i == 0 ) return false;
         while ( --i ) {
@@ -58,7 +75,10 @@ PhotoSet.prototype = {
     }
 }
 
+PhotoSet.include(Observable);
 
+
+/* ------------------------------------------------- */
 
 
 function PhotoLoader() {
@@ -115,7 +135,11 @@ FlickrLoader.prototype = {
     }
 }
 
+PhotoLoader.include(Observable);
 
+
+
+/* ------------------------------------------------- */
 
 
 function Screen(id,show) {
@@ -139,6 +163,9 @@ Screen.prototype = {
 	}
     }
 }
+
+
+/* ------------------------------------------------- */
 
 
 function Show(loader,divId) {
@@ -173,7 +200,7 @@ Show.prototype = {
     },
     endLoad : function(photoSet,start) {
 	this.photoSet = photoSet;
-	this.photoSet.shuffle();
+	this.photoSet.shufflePhotos();
 	this.photos = this.photoSet.photos;
 	if (start) this.start();
     },
@@ -197,12 +224,18 @@ Show.prototype = {
 }
 
 
+Show.include(Observable);
+
+/* ------------------------------------------------- */
+
 
 function extend(child, supertype) {
     child.prototype.__proto__ = supertype.prototype;
 }
 extend(FlickrLoader, PhotoLoader);
 
+
+/* ------------------------------------------------- */
 
 
 var flickr = new FlickrLoader("json",
