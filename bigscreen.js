@@ -70,7 +70,7 @@ FlickrLoader.prototype = {
 	photo.originalNotOrientedHeight = flickr_photo.o_height;
 	return photo;
     },
-    get : function(callback) {
+    get : function(show,callback) {
         this.ready = false;
 	thisloader = this;
         $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":FLICKR_PER_PAGE,"extras":"o_dims"},
@@ -82,7 +82,7 @@ FlickrLoader.prototype = {
 		for (var i = 0; i < thisloader.flickr_photos.length; i++) {
 		    thisloader.photos.push(thisloader.buildPhoto(thisloader.flickr_photos[i]));
 		}
-	        callback();
+	        callback.call(show);
 	    });
     }
 }
@@ -146,7 +146,7 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
     },
     fetchPhotos : function() {
-	this.loader.get(this.onboardPhotos);
+	this.loader.get(this,this.onboardPhotos);
     },
     onboardPhotos : function() {
 	this.photos = this.loader.photos;
