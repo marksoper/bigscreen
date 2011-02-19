@@ -225,8 +225,6 @@ var flickr = new FlickrLoader("json",
 			      );
 
 $(document).ready(function() {
-    alert("ready");
-    $("body").css('background-color','#000000');
     var show = new Show(flickr,SHOW_DIV_ID);
     show.start();
 });
