@@ -1,28 +1,8 @@
 
-
-var DEFAULT_PER_PAGE = 500;
 var DEFAULT_DELAY = 5000;
 var SHOW_DIV_ID = "mainShow";
 var SHOW_HTML = '<div id="' + SHOW_DIV_ID + '"></div>'
 
-/* ------------------------------------------------- */
-/* Observable borrowed from: http://blog.jcoglan.com/2010/02/22/evented-programming-patterns-observable-object/ */
-
-Observable = {
-    on: function(eventType, listener, scope) {
-	this._listeners = this._listeners || {};
-	var list = this._listeners[eventType] = this._listeners[eventType] || [];
-	list.push([listener, scope]);
-    },
-    trigger: function(eventType, args) {
-	if (!this._listeners) return;
-	var list = this._listeners[eventType];
-	if (!list) return;
-	list.forEach(function(listener) {
-		listener[0].apply(listener[1], args);
-	    });
-    }
-};
 
 /* ------------------------------------------------- */
 
@@ -49,33 +29,6 @@ Photo.prototype = {
     imgHtml : null,
     img : null
 }
-
-
-/* ------------------------------------------------- */
-
-
-function PhotoSet(photos) {
-    this.photos = photos;
-    this.screens = [];
-}
-
-PhotoSet.prototype = {
-    photos : null,
-    screens : null,
-    shufflePhotos : function() {
-        var i = this.photos.length;
-        if ( i == 0 ) return false;
-        while ( --i ) {
-            var j = Math.floor( Math.random() * ( i + 1 ) );
-            var tempi = this.photos[i];
-            var tempj = this.photos[j];
-            this.photos[i] = tempj;
-            this.photos[j] = tempi;
-        }
-    }
-}
-
-PhotoSet.include(Observable);
 
 
 /* ------------------------------------------------- */
@@ -135,9 +88,6 @@ FlickrLoader.prototype = {
     }
 }
 
-PhotoLoader.include(Observable);
-
-
 
 /* ------------------------------------------------- */
 
@@ -195,6 +145,13 @@ Show.prototype = {
 			 "margin" : "20px auto" } );
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
     },
+    fetchPhotos() {
+	this.loader.get(this.onboardPhotos);
+    },
+    onboardPhotos(new_photos) {
+	this.photos.append(new_photos);
+	this.shufflePhotos();
+    },
     beginLoad : function(per_page) {
         this.loader.get(this,per_page);
     },
@@ -205,26 +162,56 @@ Show.prototype = {
 	if (start) this.start();
     },
     start : function() {
-        this.nextScreen();
+        this.advance();
     },
-    nextScreen : function() {
+    makeNewScreen : function() {
+	if (this.photos.length() >= 1) {
+	    var screen = new Screen("Screen__" + this.screenSequence,[this.photos[0]]);
+	    this.photos.remove(this.photos[0]);
+	    this.screenSequence++;
+	    return screen;
+        } else {
+	    this.loadPhotos();
+	    return false;
+        }
+    },
+    getNextScreen : function() {
+        if (this.index < this.screens.length - 1) {
+	    this.index++;
+	    if (this.index >= this.screens.length - 1) {
+	        this.makeNewScreen();  /* error handling */
+            }
+	    return this.screens[index];
+        } else {
+	    this.makeNewScreen();
+	    return false;
+        }
+    },
+    advance : function() {
         var thisshow = this;
         timer = setTimeout(function() {
-	    var screen = new Screen();
-	    screen.setPhoto(thisshow.photos[index]);
-	    screen.visible = true;
-	    screen.divHtml = '<div id="' + screen.id + '">' + screen.div.html() + '</div>'
-	    thisshow.div.html(thisshow.div.html() + screen.;
-	    thisshow.photo.css({"width" : (window.screen.availWidth - 162) + "px", "height" : "none" });
-	    thisshow.photo.css("display","block");
-            thisshow.index++;
-            thisshow.nextScreen();
+	    var screen = this.getNextScreen()
+	    if (screen) {
+		this.currentScreen.div.addClass("hidden").removeClass("visible");
+		this.currentScreen = screen;
+		this.currentScreen.div.addClass("visible").removeClass("hidden");
+            }
+            thisshow.advance();
         }, DEFAULT_DELAY);
+    },
+    shufflePhotos : function() {
+        var i = this.photos.length;
+        if ( i == 0 ) return false;
+        while ( --i ) {
+            var j = Math.floor( Math.random() * ( i + 1 ) );
+            var tempi = this.photos[i];
+            var tempj = this.photos[j];
+            this.photos[i] = tempj;
+            this.photos[j] = tempi;
+        }
     }
 }
 
-
-Show.include(Observable);
 
 /* ------------------------------------------------- */
 
@@ -249,7 +236,7 @@ var flickr = new FlickrLoader("json",
 $(document).ready(function() {
     $("body").css('background-color','#000000');
     var show = new Show(flickr,SHOW_DIV_ID);
-    show.beginLoad(DEFAULT_PER_PAGE);
+    show.start();
 });
 
 
