@@ -145,21 +145,12 @@ Show.prototype = {
 			 "margin" : "20px auto" } );
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
     },
-    fetchPhotos() : function() {
+    fetchPhotos : function() {
 	this.loader.get(this.onboardPhotos);
     },
-    onboardPhotos(new_photos) : function() {
+    onboardPhotos : function(new_photos) {
 	this.photos.append(new_photos);
 	this.shufflePhotos();
-    },
-    beginLoad : function(per_page) {
-        this.loader.get(this,per_page);
-    },
-    endLoad : function(photoSet,start) {
-	this.photoSet = photoSet;
-	this.photoSet.shufflePhotos();
-	this.photos = this.photoSet.photos;
-	if (start) this.start();
     },
     start : function() {
         this.advance();
