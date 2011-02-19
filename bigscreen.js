@@ -1,8 +1,7 @@
 
 var DEFAULT_DELAY = 5000;
 var SHOW_DIV_ID = "mainShow";
-var SHOW_HTML = '<div id="' + SHOW_DIV_ID + '"></div>'
-
+var INIT_SHOW_HTML = '<img src="http://media.kickstatic.com/kickapps/images/11071/photos/PHOTO_1985903_11071_3947667_main.jpg">'
 
 /* ------------------------------------------------- */
 
@@ -123,7 +122,7 @@ function Show(loader,divId) {
     this.divId = divId;
     this.index = 0;
     this.screens = [];
-    this.preparePage();
+    this.initPage();
     this.fitToWindow();
 }
 
@@ -136,8 +135,8 @@ Show.prototype = {
     photoSet : null,
     photos : null,
     screens : null,
-    preparePage : function() {
-        $('body').html(SHOW_HTML);
+    initPage : function() {
+        $('#'+SHOW_DIV_ID).html(INIT_SHOW_HTML);
 	this.div = $("#"+this.divId);
     },
     fitToWindow : function() {
