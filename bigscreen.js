@@ -1,5 +1,6 @@
 
 var DEFAULT_DELAY = 5000;
+var FLICKR_PER_PAGE = 100;
 var SHOW_DIV_ID = "mainShow";
 var INIT_SHOW_HTML = '<img src="http://media.kickstatic.com/kickapps/images/11071/photos/PHOTO_1985903_11071_3947667_main.jpg">'
 
@@ -69,10 +70,10 @@ FlickrLoader.prototype = {
 	photo.originalNotOrientedHeight = flickr_photo.o_height;
 	return photo;
     },
-    get : function(show,per_page) {
+    get : function(callback) {
         this.ready = false;
 	thisloader = this;
-        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":per_page,"extras":"o_dims"},
+        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":FLICKR_PER_PAGE,"extras":"o_dims"},
             function(data) {
 	        thisloader.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
                 thisloader.res = jQuery.parseJSON(thisloader.data);
@@ -81,9 +82,7 @@ FlickrLoader.prototype = {
 		for (var i = 0; i < thisloader.flickr_photos.length; i++) {
 		    thisloader.photos.push(thisloader.buildPhoto(thisloader.flickr_photos[i]));
 		}
-	        thisloader.photoSet = new PhotoSet(thisloader.photos);
-	        show.endLoad(thisloader.photoSet,true);
-	        return;
+	        callback();
 	    });
     }
 }
@@ -149,8 +148,8 @@ Show.prototype = {
     fetchPhotos : function() {
 	this.loader.get(this.onboardPhotos);
     },
-    onboardPhotos : function(new_photos) {
-	this.photos.append(new_photos);
+    onboardPhotos : function() {
+	this.photos = this.loader.photos;
 	this.shufflePhotos();
     },
     start : function() {
