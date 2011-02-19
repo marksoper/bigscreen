@@ -122,6 +122,7 @@ function Show(loader,divId) {
     this.divId = divId;
     this.index = 0;
     this.screens = [];
+    this.photos = [];
     /* this.initPage(); */
     this.fitToWindow();
 }
