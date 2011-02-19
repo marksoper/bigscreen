@@ -180,7 +180,7 @@ Show.prototype = {
     advance : function() {
         var thisshow = this;
         timer = setTimeout(function() {
-	    var screen = this.getNextScreen()
+	    var screen = thisshow.getNextScreen()
 	    if (screen) {
 		this.currentScreen.div.addClass("hidden").removeClass("visible");
 		this.currentScreen = screen;
