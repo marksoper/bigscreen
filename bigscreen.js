@@ -145,10 +145,10 @@ Show.prototype = {
 			 "margin" : "20px auto" } );
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
     },
-    fetchPhotos() : {
+    fetchPhotos() : function() {
 	this.loader.get(this.onboardPhotos);
     },
-    onboardPhotos(new_photos) : {
+    onboardPhotos(new_photos) : function() {
 	this.photos.append(new_photos);
 	this.shufflePhotos();
     },
