@@ -71,17 +71,18 @@ FlickrLoader.prototype = {
     },
     get : function(show,per_page) {
         this.ready = false;
+	thisloader = this;
         $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":per_page,"extras":"o_dims"},
             function(data) {
-	        this.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
-                this.res = jQuery.parseJSON(this.data);
-                this.flickr_photos = this.res.photos.photo;
-		this.photos = [];
-		for (var i = 0; i < this.flickr_photos.length; i++) {
-		    this.photos.push(this.buildPhoto(this.flickr_photos[i]));
+	        thisloader.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
+                thisloader.res = jQuery.parseJSON(thisloader.data);
+                thisloader.flickr_photos = thisloader.res.photos.photo;
+		thisloader.photos = [];
+		for (var i = 0; i < thisloader.flickr_photos.length; i++) {
+		    thisloader.photos.push(thisloader.buildPhoto(thisloader.flickr_photos[i]));
 		}
-	        this.photoSet = new PhotoSet(this.photos);
-	        show.endLoad(this.photoSet,true);
+	        thisloader.photoSet = new PhotoSet(thisloader.photos);
+	        show.endLoad(thisloader.photoSet,true);
 	        return;
 	    });
     }
