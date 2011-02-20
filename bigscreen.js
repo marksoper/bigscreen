@@ -180,9 +180,6 @@ Show.prototype = {
         timer = setTimeout(function() {
 	    var screen = thisshow.getNextScreen()
 	    if (screen) {
-		/* alert(screen.id);
-		   var div = $("#"+this.divId); */
-		alert(thisshow.div.html());
 		thisshow.div.children(".screenImg").addClass("hidden").removeClass("visible");
 		thisshow.div.html(thisshow.div.html() + screen.content);
             }
