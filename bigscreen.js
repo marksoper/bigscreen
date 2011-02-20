@@ -212,6 +212,10 @@ extend(FlickrLoader, PhotoLoader);
 /* ------------------------------------------------- */
 
 
+/*  ADD SOMETHING LIKE THIS TO YOUR SITE
+
+var SHOW_DIV_ID = "mainShow";
+
 var flickr = new FlickrLoader("json",
 			      "ff4f40b52906a3fae2961e17739db037",
 			      "http://api.flickr.com/services/rest/",
@@ -225,6 +229,7 @@ $(document).ready(function() {
     show.start();
 });
 
+*/
 
 
 
