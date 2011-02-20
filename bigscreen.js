@@ -110,6 +110,7 @@ Screen.prototype = {
 function Show(loader,divId) {
     this.loader = loader;
     this.divId = divId;
+    this.div = $("#"+this.divId);
     this.index = 0;
     this.screenSequence = 0;
     this.screens = [];
@@ -121,6 +122,7 @@ function Show(loader,divId) {
 Show.prototype = {
     loader : null,
     divId : null,
+    div : null,
     photo : null,
     index : null,
     screenSequence : null,
@@ -178,12 +180,12 @@ Show.prototype = {
         timer = setTimeout(function() {
 	    var screen = thisshow.getNextScreen()
 	    if (screen) {
-		alert(this.divId);
-		/* alert(screen.id); */
+		alert(thisshow.divId);
+		/* alert(screen.id);
 		var div = $("#"+this.divId);
-		/* alert(div.html()); */
-		div.children(".screen").addClass("hidden").removeClass("visible");
-		div.html(div.html() + screen.content);
+		 alert(div.html()); */
+		thisshow.div.children(".screen").addClass("hidden").removeClass("visible");
+		thisshow.div.html(div.html() + screen.content);
             }
             thisshow.advance();
         }, DEFAULT_DELAY);
