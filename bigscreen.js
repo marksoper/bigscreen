@@ -178,9 +178,10 @@ Show.prototype = {
         timer = setTimeout(function() {
 	    var screen = thisshow.getNextScreen()
 	    if (screen) {
+		alert(this.divId);
 		/* alert(screen.id); */
 		var div = $("#"+this.divId);
-		alert(div.html());
+		/* alert(div.html()); */
 		div.children(".screen").addClass("hidden").removeClass("visible");
 		div.html(div.html() + screen.content);
             }
