@@ -180,6 +180,7 @@ Show.prototype = {
 	    if (screen) {
 		/* alert(screen.id); */
 		var div = $("#"+this.divId);
+		alert(div.html());
 		div.children(".screen").addClass("hidden").removeClass("visible");
 		div.html(div.html() + screen.content);
             }
