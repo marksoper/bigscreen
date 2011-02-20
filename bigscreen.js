@@ -151,7 +151,7 @@ Show.prototype = {
 	    var screen = new Screen("screen" + this.screenSequence,[this.photos[0]]);
 	    this.photos.shift();
 	    this.screenSequence++;
-	    screen.content = '<img class="screen visible" id="' + this.id + '" src="' + this.photos[0].url + '" />';
+	    screen.content = '<img class="screenImg visible" id="' + this.id + '" src="' + this.photos[0].url + '" />';
 	    this.screens.push(screen);
 	    return screen;
         } else {
@@ -183,8 +183,8 @@ Show.prototype = {
 		/* alert(screen.id);
 		   var div = $("#"+this.divId); */
 		alert(thisshow.div.html());
-		thisshow.div.children(".screen").addClass("hidden").removeClass("visible");
-		thisshow.div.html(div.html() + screen.content);
+		thisshow.div.children(".screenImg").addClass("hidden").removeClass("visible");
+		thisshow.div.html(thisshow.div.html() + screen.content);
             }
             thisshow.advance();
         }, DEFAULT_DELAY);
