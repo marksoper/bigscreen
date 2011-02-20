@@ -163,7 +163,7 @@ Show.prototype = {
 	    if (this.index >= this.screens.length - 1) {
 	        this.makeNewScreen();  /* to prep for next cycle - needs error handling */
             }
-	    return this.screens[index];
+	    return this.screens[this.index];
         } else {
 	    screen = this.makeNewScreen();
 	    if (screen) {
