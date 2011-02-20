@@ -158,7 +158,7 @@ Show.prototype = {
     makeNewScreen : function() {
 	if (this.photos.length >= 1) {
 	    var screen = new Screen("Screen__" + this.screenSequence,[this.photos[0]]);
-	    this.photos.remove(this.photos[0]);
+	    this.photos.shift();
 	    this.screenSequence++;
 	    return screen;
         } else {
