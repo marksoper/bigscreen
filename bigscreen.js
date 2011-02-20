@@ -91,26 +91,16 @@ FlickrLoader.prototype = {
 /* ------------------------------------------------- */
 
 
-function Screen(id,show) {
+function Screen(id,photos) {
     this.id = id;
-    this.visible = false;
-    this.photos = [];
+    this.photos = photos;
+    this.content = null;
 }
 
 Screen.prototype = {
     id : null,
-    div : null,
     photos : null,
-    visible : null,
-    setPhoto : function(photo) {
-	if (this.photos.length >= 0) {
-	    photo.imgId = this.divId + '__' + (this.photos.length + 1);
-	    photo.imgHtml = '<img id="' + photo.imgId + '" src="' + photo.url + '"/>';
-	    $(this.div).html(photo.imgHtml);
-            this.photos = [photo];
-	    photo.img = $("#" + photo.imgId);
-	}
-    }
+    content : null
 }
 
 
@@ -121,30 +111,29 @@ function Show(loader,divId) {
     this.loader = loader;
     this.divId = divId;
     this.index = 0;
+    this.screenSequence = 0;
     this.screens = [];
     this.photos = [];
     /* this.initPage(); */
-    this.fitToWindow();
+    /*this.fitToWindow(); */
 }
 
 Show.prototype = {
     loader : null,
     divId : null,
-    div : null,
     photo : null,
     index : null,
-    photoSet : null,
+    screenSequence : null,
     photos : null,
     screens : null,
-    initPage : function() {
+    /*    initPage : function() {
         $('#'+SHOW_DIV_ID).html(INIT_SHOW_HTML);
-	this.div = $("#"+this.divId);
     },
     fitToWindow : function() {
 	$(this.div).css({"width" : (window.screen.availWidth - 160) + "px",
 			 "margin" : "20px auto" } );
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
-    },
+	},  */
     fetchPhotos : function() {
 	this.loader.get(this,this.onboardPhotos);
     },
@@ -160,6 +149,8 @@ Show.prototype = {
 	    var screen = new Screen("Screen__" + this.screenSequence,[this.photos[0]]);
 	    this.photos.shift();
 	    this.screenSequence++;
+	    screen.content = '<img id="screen' + this.id + '" src="' + this.photos[0].url + '" />';
+	    this.screens.push(screen);
 	    return screen;
         } else {
 	    this.fetchPhotos();
@@ -170,12 +161,16 @@ Show.prototype = {
         if (this.index < this.screens.length - 1) {
 	    this.index++;
 	    if (this.index >= this.screens.length - 1) {
-	        this.makeNewScreen();  /* error handling */
+	        this.makeNewScreen();  /* to prep for next cycle - needs error handling */
             }
 	    return this.screens[index];
         } else {
-	    this.makeNewScreen();
-	    return false;
+	    screen = this.makeNewScreen();
+	    if (screen) {
+                return screen;
+            } else {
+   	        return false;
+            }
         }
     },
     advance : function() {
@@ -183,6 +178,7 @@ Show.prototype = {
         timer = setTimeout(function() {
 	    var screen = thisshow.getNextScreen()
 	    if (screen) {
+		alert(screen.id);
 		this.currentScreen.div.addClass("hidden").removeClass("visible");
 		this.currentScreen = screen;
 		this.currentScreen.div.addClass("visible").removeClass("hidden");
