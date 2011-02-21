@@ -74,7 +74,8 @@ FlickrLoader.prototype = {
         this.ready = false;
 	thisloader = this;
         /* random per_page value used because Flickr seems to have a bug in api           where results occasionally don't return.  Changing the per_page value often fixes the problem, inexplicably */
-        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":Math.min((Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"},
+        /* $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":Math.min((Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"}, */
+        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"tags":"denali","per_page":Math.min((Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"},
             function(data) {
 	        thisloader.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
                 thisloader.res = jQuery.parseJSON(thisloader.data);
