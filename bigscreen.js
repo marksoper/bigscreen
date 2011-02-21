@@ -1,5 +1,5 @@
 
-var DEFAULT_DELAY = 5000;
+var DEFAULT_DELAY = 8000;
 var FLICKR_PER_PAGE = 100;
 var SHOW_DIV_ID = "mainShow";
 var INIT_SHOW_HTML = '<img src="http://media.kickstatic.com/kickapps/images/11071/photos/PHOTO_1985903_11071_3947667_main.jpg">'
