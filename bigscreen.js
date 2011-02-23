@@ -169,7 +169,7 @@ Show.prototype = {
             }
 	    return this.screens[this.index];
         } else {
-	    screen = this.makeNewScreen();
+	    var screen = this.makeNewScreen();
 	    if (screen) {
                 return screen;
             } else {
