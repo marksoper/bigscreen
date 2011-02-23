@@ -153,7 +153,7 @@ Show.prototype = {
 	    var screen = new Screen("screen" + this.screenSequence,[this.photos[0]]);
 	    this.photos.shift();
 	    this.screenSequence++;
-	    screen.content = '<img class="screenImg visible" id="' + screen.id + '" src="' + screen.photos[0].url + '" />';
+	    screen.content = '<div class="screenDiv"><img class="screenImg visible" id="' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
 	    this.screens.push(screen);
 	    return screen;
         } else {
