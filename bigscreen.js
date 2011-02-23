@@ -1,4 +1,19 @@
 
+/*
+    Copyright (c) 2011 Mark Soper, http://marksoper.net
+    MIT License
+*/
+
+/*  
+    DEPENDENCIES
+    bigscreen.js requires JQuery
+    For more information:
+      http://plugins.jquery.com/project/bigscreen
+    You need a line like this in your <head>:
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+*/
+
+
 var DEFAULT_DELAY = 6500;
 var FLICKR_PER_PAGE = 100;
 var SHOW_DIV_ID = "mainShow";

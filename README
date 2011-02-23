@@ -1,9 +1,8 @@
 
-Open Source Initiative OSI - The MIT License:Licensing
 
-The MIT License
 
 Copyright (c) 2011 Mark Soper, http://marksoper.net
+MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +27,35 @@ THE SOFTWARE.
 
 
 bigscreen.js
-creator: Mark Soper - http://marksoper.net
+MIT-License, Copyright (c) 2011 Mark Soper, http://marksoper.net
 
-bigscreen.js is a javascript slideshow application for producing full-screen slideshows using pictures obtained from Flickr or other photo sharing sites. It is the slideshow engine behind BigScreen.me (http://bigscreen.me), which helps photographers create their own personal websites to showcase their best Flickr pictures.
+Source:
+https://github.com/marksoper/bigscreen
+
+Demo:
+http://bigscreen.me
+http://marksoper.net
+
+More Info:
+http://plugins.jquery.com/project/bigscreen
 
 More documentation is forthcoming. Meanwhile, if you want to use it and have questions please contact me. My email address is my first name @bigscreen.me
 
 
+BigScreen creates a full-sized photo slideshow.
+
+It's meant to display a photographer's latest or favorite shots in a high-quality gallery setting as soon as this content has been uploaded to the photo sharing site of his or her choice.
+
+How BigScreen differs from other javascript slideshows:
+
+1. It sources images directly from various photo service APIs.  This means that with little or no backend, your show can tap into a rich set of current content.  Initially Flickr's REST API is built in - just supply your own parameters and you're good to go.  Other APIs, like Facebook, can be added in a modular way using the PhotoLoader class.
+
+2. It's designed to maximize the viewing area of the window or div it resides in by combining the available photos into good-looking "screens".  The Screen class represents the unit of display in the slideshow rather than an individual photo.  E.g. two portrait images could be combined side-by-side to fill a landscape-sized window.
+
+
+
+Dependencies
+
+JQuery - put a line like this in the <head> of your page:
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
