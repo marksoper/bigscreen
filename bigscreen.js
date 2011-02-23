@@ -182,7 +182,7 @@ Show.prototype = {
         timer = setTimeout(function() {
 	    var screen = thisshow.getNextScreen()
 	    if (screen) {
-		thisshow.div.children(".screenImg").addClass("hidden").removeClass("visible");
+		thisshow.div.children(".screenDiv").addClass("hidden").removeClass("visible");
 		thisshow.div.html(thisshow.div.html() + screen.content);
             }
             thisshow.advance();
