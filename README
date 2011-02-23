@@ -30,8 +30,7 @@ THE SOFTWARE.
 bigscreen.js
 creator: Mark Soper - http://marksoper.net
 
-bigscreen.js is a javascript slideshow application for producing full-screen slideshows using pictures obtained from Flickr or other photo sharing sites.
-It was designed initially to create a personal homepage from my own Flickr favorites (http://marksoper.net) and later extended to support more general requirements as part of a service called BigScreen.me (http://bigscreen.me) that helps people create their own slideshow websites.
+bigscreen.js is a javascript slideshow application for producing full-screen slideshows using pictures obtained from Flickr or other photo sharing sites. It is the slideshow engine behind BigScreen.me (http://bigscreen.me), which helps photographers create their own personal websites to showcase their best Flickr pictures.
 
 More documentation is forthcoming. Meanwhile, if you want to use it and have questions please contact me. My email address is my first name @bigscreen.me
 
