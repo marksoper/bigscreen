@@ -45,7 +45,8 @@ function FlickrLoader(format,
 		      url,
 		      method,
 		      user_id,
-		      tags) {
+		      tags,
+		      group_id) {
     PhotoLoader.call(this);
     this.format = format;
     this.api_key = api_key;
@@ -53,6 +54,7 @@ function FlickrLoader(format,
     this.method = method;
     this.user_id = user_id;
     this.tags = tags;
+    this.group_id = group_id;
 }
 FlickrLoader.prototype = {
     format : null,
@@ -75,7 +77,7 @@ FlickrLoader.prototype = {
 	thisloader = this;
         /* random per_page value used because Flickr seems to have a bug in api           where results occasionally don't return.  Changing the per_page value often fixes the problem, inexplicably */
         /* $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":Math.min((Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"}, */
-        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"tags":"denali,namibia,kailuakona","per_page":Math.min((Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"},
+        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"group_id":this.group_id,"per_page":Math.min(Math.floor(Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"},
             function(data) {
 	        thisloader.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
                 thisloader.res = jQuery.parseJSON(thisloader.data);
