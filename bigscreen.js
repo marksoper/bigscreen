@@ -202,7 +202,7 @@ Show.prototype = {
 	this.shufflePhotos();
     },
     start : function() {
-	if !(this.prepared) {
+	if (!this.prepared) {
 	    this.prepare();
 	}
         this.advance();
