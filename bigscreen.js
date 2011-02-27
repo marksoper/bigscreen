@@ -193,6 +193,7 @@ Show.prototype = {
 	    this.div.html(this.div.html() + '<div id="bigscreenDebugDiv" style="overflow:hidden;clear:both;"></div>');
 	    this.debugDiv = $("#bigscreenDebugDiv");
         }
+	this.prepared = true;
     },
     fetchPhotos : function() {
 	this.loader.get(this,this.onboardPhotos);
