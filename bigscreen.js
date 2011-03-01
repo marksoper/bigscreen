@@ -251,7 +251,7 @@ Show.prototype = {
 		    thisshow.debugDiv.html(thisshow.debugDiv.html() + "screen " + screen.id + " - " + screen.photos[0].url);
                 }
             }
-	    if (this.running) {
+	    if (thisshow.running) {
                 thisshow.advance();
 	    }
         }, DEFAULT_DELAY);
