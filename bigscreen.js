@@ -85,29 +85,19 @@ function PhotoLoader() {
 PhotoLoader.prototype = {
 }
 
-function FlickrLoader(format,
-		      api_key,
-		      url,
-		      method,
-		      user_id,
-		      tags,
-		      group_id) {
+function FlickrLoader(url, params) {
     PhotoLoader.call(this);
-    this.format = format;
-    this.api_key = api_key;
     this.url = url;
-    this.method = method;
-    this.user_id = user_id;
-    this.tags = tags;
-    this.group_id = group_id;
+    this.params = params;
+    if (!('per_page' in this.params)) {
+	this.params['per_page'] = Math.min(Math.floor(Math.random()+0.5)*FLICKR_PER_PAGE,490);
+    }
+    this.params['extras'] = "o_dims";
 }
+
 FlickrLoader.prototype = {
-    format : null,
-    api_key : null,
     url : null,
-    method : null,
-    user_id : null,
-    tags : null,
+    params : {},
     buildUrl : function(flickr_photo) {
 	return "http://farm" + flickr_photo.farm + ".static.flickr.com/" + flickr_photo.server + "/" + flickr_photo.id + "_" + flickr_photo.secret + "_b_d.jpg";
     },
@@ -122,7 +112,7 @@ FlickrLoader.prototype = {
 	thisloader = this;
         /* random per_page value used because Flickr seems to have a bug in api           where results occasionally don't return.  Changing the per_page value often fixes the problem, inexplicably */
         /* $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":Math.min((Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"}, */
-        $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"group_id":this.group_id,"per_page":Math.min(Math.floor(Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"},
+        $.get(this.url, this.params,
             function(data) {
 	        thisloader.data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
                 thisloader.res = jQuery.parseJSON(thisloader.data);
