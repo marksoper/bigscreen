@@ -165,7 +165,7 @@ function Show(loader,divId) {
     this.screens = [];
     this.photos = [];
     this.prepared = false;
-
+    this.running = false; 
     /* this.initPage(); */
     /*this.fitToWindow(); */
 }
@@ -174,12 +174,12 @@ Show.prototype = {
     loader : null,
     divId : null,
     div : null,
-    photo : null,
     index : null,
     screenSequence : null,
     photos : null,
     screens : null,
     prepared : false,
+    running : false,
     /*    initPage : function() {
         $('#'+SHOW_DIV_ID).html(INIT_SHOW_HTML);
     },
@@ -203,10 +203,23 @@ Show.prototype = {
 	this.shufflePhotos();
     },
     start : function() {
-	if (!this.prepared) {
-	    this.prepare();
+	if (!this.running) {
+	    if (!this.prepared) {
+	        this.prepare();
+	    }
+	    this.running = true;
+            this.advance();
 	}
-        this.advance();
+    },
+    stop : function() {
+	if (this.running) {
+	    this.running = false;
+	}
+    },
+    reset : function() {
+	this.photos = [];
+	this.screens = [];
+	this.div.html('');
     },
     makeNewScreen : function() {
 	if (this.photos.length >= 1) {
@@ -248,7 +261,9 @@ Show.prototype = {
 		    thisshow.debugDiv.html(thisshow.debugDiv.html() + "screen " + screen.id + " - " + screen.photos[0].url);
                 }
             }
-            thisshow.advance();
+	    if (this.running) {
+                thisshow.advance();
+	    }
         }, DEFAULT_DELAY);
     },
     shufflePhotos : function() {
