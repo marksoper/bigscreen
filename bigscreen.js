@@ -155,7 +155,7 @@ function Show(loader,divId) {
     this.screens = [];
     this.photos = [];
     this.prepared = false;
-    this.running = false; 
+    this.running = false;
     /* this.initPage(); */
     /*this.fitToWindow(); */
 }
