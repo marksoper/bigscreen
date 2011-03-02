@@ -151,7 +151,7 @@ function Show(loader,divId) {
     this.divId = divId;
     this.div = $("#"+this.divId);
     this.height = this.div.css("height");
-    this.width = this.div.css("width"));
+    this.width = this.div.css("width");
     this.index = 0;
     this.screenSequence = 0;
     this.screens = [];
