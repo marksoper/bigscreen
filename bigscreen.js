@@ -250,7 +250,7 @@ Show.prototype = {
 		thisshow.div.children(".screenDiv").addClass("hidden").removeClass("visible");
 		thisshow.div.html(thisshow.div.html() + screen.content);
 		liveImg = $('#'+screen.id);
-		alert($(liveImg).height() + " x " + $(liveImg).width());
+		/* alert($(liveImg).height() + " x " + $(liveImg).width()); */
 	        
 		if (bigscreenDEBUG) {
 		    thisshow.debugDiv.html(thisshow.debugDiv.html() + "screen " + screen.id + " - " + screen.photos[0].url);
