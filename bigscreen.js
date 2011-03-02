@@ -156,7 +156,7 @@ function Show(loader,divId) {
     this.photos = [];
     this.prepared = false;
     this.running = false;
-    alert(this.div.attr("height") + " x " + this.div.attr("width"));
+    alert(this.div.css("height") + " x " + this.div.css("width"));
     /* this.initPage(); */
     /*this.fitToWindow(); */
 }
