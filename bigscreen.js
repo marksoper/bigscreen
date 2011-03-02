@@ -150,13 +150,14 @@ function Show(loader,divId) {
     this.loader = loader;
     this.divId = divId;
     this.div = $("#"+this.divId);
+    this.height = this.div.css("height");
+    this.width = this.div.css("width"));
     this.index = 0;
     this.screenSequence = 0;
     this.screens = [];
     this.photos = [];
     this.prepared = false;
     this.running = false;
-    alert(this.div.css("height") + " x " + this.div.css("width"));
     /* this.initPage(); */
     /*this.fitToWindow(); */
 }
@@ -248,6 +249,9 @@ Show.prototype = {
 	    if (screen) {
 		thisshow.div.children(".screenDiv").addClass("hidden").removeClass("visible");
 		thisshow.div.html(thisshow.div.html() + screen.content);
+		liveImg = $('#'+screen.id);
+		alert($(liveImg).height() + " x " + $(liveImg).width());
+	        
 		if (bigscreenDEBUG) {
 		    thisshow.debugDiv.html(thisshow.debugDiv.html() + "screen " + screen.id + " - " + screen.photos[0].url);
                 }
