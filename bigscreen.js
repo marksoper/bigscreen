@@ -237,6 +237,22 @@ Show.prototype = {
 	    this.insertScreen(screen,false);
 	}
     },
+    makeScreen : function(photo) {
+	var screen = new Screen(this.screenSequence, [photo]);
+	screen.content = '<div class="screenDiv" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
+	return screen;
+    },
+    insertScreen : function(screen) {  
+	if (window.debug) {
+	    dbug.log("insertScreen screen" + screen.id + " | " + screen.photos[0].url);
+        }
+	this.screenSequence++;
+	this.screens.push(screen);
+	this.div.html(this.div.html() + screen.content);
+	if (this.screenSequence == 1) {    /* hook to handle the initial page load case */
+	    this.displayScreen(0);
+        }
+    },
     start : function() {
 
 	if (!(this.running)) {
@@ -259,19 +275,6 @@ Show.prototype = {
 	this.photos = [];
 	this.screens = [];
 	this.div.html('');
-    },
-    makeScreen : function(photo) {
-	this.screenSequence++;
-	var screen = new Screen(this.screenSequence, [photo]);
-	screen.content = '<div class="screenDiv" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
-	return screen;
-    },
-    insertScreen : function(screen) {  
-	if (window.debug) {
-	    dbug.log("insertScreen screen" + screen.id + " | " + screen.photos[0].url);
-        }
-	this.screens.push(screen);
-	this.div.html(this.div.html() + screen.content);
     },
     displayScreen : function(index) {
 	screen = $("#screenDiv"+index);
