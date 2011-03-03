@@ -183,7 +183,7 @@ Show.prototype = {
 	},  */
     prepare : function() {
 	if (DEBUG) {
-            
+            alert(getTime().toGMTString() + " | " + "Show.prepare");
 	    $("#bigscreenLog").append(getTime().toGMTString() + " | " + "Show.prepare");
         }
 	this.prepared = true;
