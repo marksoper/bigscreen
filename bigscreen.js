@@ -59,7 +59,7 @@ Debug.prototype = {
 	$("#bigscreenLog").append(0.00 + " | debug started<br>");
     },
     log : function(msg) {
-	$("#bigscreenLog").append((new Date).getTime() - this.initTime + " | " + msg + <br>);
+	$("#bigscreenLog").append((new Date).getTime() - this.initTime + " | " + msg + "<br>");
     }
 }
 
