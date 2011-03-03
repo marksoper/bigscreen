@@ -284,7 +284,7 @@ Show.prototype = {
 		/* alert($(liveImg).height() + " x " + $(liveImg).width()); */
 	        
 		if (window.debug) {
-		    thisshow.debugDiv.html(thisshow.debugDiv.html() + "screen " + screen.id + " - " + screen.photos[0].url);
+		    dbug.log("screen " + screen.id + " - " + screen.photos[0].url);
                 }
             }
 	    if (thisshow.running) {
