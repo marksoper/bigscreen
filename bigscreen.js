@@ -283,11 +283,11 @@ Show.prototype = {
 	this.div.html('');
     },
     displayScreen : function(index) {
-	screen = $("#screenDiv"+index);
+	screenDiv = $("#screenDiv"+index);
 	$(".screenDiv").addClass("hidden").removeClass("visible");
-	$(screen).addClass("visible").removeClass("hidden");
+	$(screenDiv).addClass("visible").removeClass("hidden");
 	if (window.debug) {
-	    dbug.log("Show.displayScreen() displaying screen" + screen.id + " | " + screen.photos[0].url);
+	    dbug.log("Show.displayScreen() displaying screenDiv" + screenDiv.css('id') );
 	}
     },
     advance : function() {
