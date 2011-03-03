@@ -129,11 +129,12 @@ FlickrLoader.prototype = {
 	return photo;
     },
     get : function(show,callback) {
-	thisloader = this;
 	if (window.debug) {
 	    dbug.log("request data from " + this.url + this.params);
 	}
-	this.params["page"] = this.page + 1 + '';
+	this.params["page"] = this.page;
+	this.page++;
+	thisloader = this;
         $.get(this.url, this.params,
             function(data) {
 	        if (window.debug) {
