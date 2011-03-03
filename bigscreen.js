@@ -46,6 +46,25 @@ var SHOW_DIV_ID = "mainShow";
 var INIT_SHOW_HTML = '<img src="http://farm6.static.flickr.com/5258/5480682306_d1eed449f4_b.jpg">';
 
 
+function Debug() {
+    this.running = false;
+}
+
+Debug.prototype = {
+    running : false,
+    initTime : null,
+    start : function() {
+	this.running = true;
+	this.initTime = (new Date).getTime();
+	$("#bigscreenDebug").append(0.00 + " | " + msg);
+    },
+    log : function(msg) {
+	$("#bigscreenDebug").append((new Date).getTime() - this.initTime + " | " + msg);
+    }
+}
+
+var debug = Debug();
+
 
 
 
@@ -160,6 +179,9 @@ Screen.prototype = {
     this.running = false;
     this.debug = debug;
     window.debug = this.debug;
+    if (window.debug) {
+	debug.start();	
+    }
 
     /* this.initPage(); */
     /*this.fitToWindow(); */
@@ -188,7 +210,7 @@ Show.prototype = {
         alert(window.debug);
 	if (window.debug) {
             alert((new Date).toGMTString() + " | " + "Show.prepare");
-	    $("#bigscreenLog").append((new Date).toGMTString() + " | " + "Show.prepare");
+	    debug.log((new Date).getTime() - this + " | " + "Show.prepare");
         }
 	this.prepared = true;
     },
