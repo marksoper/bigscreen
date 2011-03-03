@@ -63,7 +63,7 @@ Debug.prototype = {
     }
 }
 
-var debug = new Debug();
+var dbug = new Debug();
 
 
 
@@ -180,7 +180,7 @@ Screen.prototype = {
     this.debug = debugFlag;
     window.debug = this.debug;
     if (window.debug) {
-	debug.start();	
+	dbug.start();	
     }
 
     /* this.initPage(); */
@@ -210,7 +210,7 @@ Show.prototype = {
         alert(window.debug);
 	if (window.debug) {
             alert((new Date).toGMTString() + " | " + "Show.prepare");
-	    debug.log((new Date).getTime() - this + " | " + "Show.prepare");
+	    dbug.log((new Date).getTime() - this + " | " + "Show.prepare");
         }
 	this.prepared = true;
     },
