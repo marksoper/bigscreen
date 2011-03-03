@@ -274,7 +274,7 @@ Show.prototype = {
 	this.div.html(this.div.html() + screen.content);
     },
     displayScreen : function(index) {
-	screen = $("#screen"+index);
+	screen = $("#screenDiv"+index);
 	$(".screenDiv").addClass("hidden").removeClass("visible");
 	$(screen).addClass("visible").removeClass("hidden");
     },
