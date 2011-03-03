@@ -146,7 +146,7 @@ Screen.prototype = {
 /* ------------------------------------------------- */
 
 
-function Show(loader,divId) {
+    function Show(loader,divId,debug) {
     this.loader = loader;
     this.divId = divId;
     this.div = $("#"+this.divId);
@@ -158,6 +158,10 @@ function Show(loader,divId) {
     this.photos = [];
     this.prepared = false;
     this.running = false;
+    this.debug = debug;
+
+    var DEBUG = this.debug;
+
     /* this.initPage(); */
     /*this.fitToWindow(); */
 }
@@ -172,6 +176,7 @@ Show.prototype = {
     screens : null,
     prepared : false,
     running : false,
+    this.debug : false,
     /*    initPage : function() {
         $('#'+SHOW_DIV_ID).html(INIT_SHOW_HTML);
     },
@@ -181,11 +186,7 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
 	},  */
     prepare : function() {
-        alert(bigscreenDEBUG);
-	if (typeof bigscreenDEBUG == 'undefined') {
-            var bigscreenDEBUG = false;
-        }
-        var DEBUG = bigscreenDEBUG;
+
 	if (DEBUG) {
             alert(getTime().toGMTString() + " | " + "Show.prepare");
 	    $("#bigscreenLog").append(getTime().toGMTString() + " | " + "Show.prepare");
