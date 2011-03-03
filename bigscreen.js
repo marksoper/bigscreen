@@ -307,6 +307,9 @@ Show.prototype = {
 	    this.fetchPhotos();
         } else {
 	    if (this.index <= this.screenSequence) {
+		if (this.index <= this.screenSequence - 3) {
+		    this.fetchPhotos();
+                }
 	        this.displayScreen(this.index);
 	        this.index++;
 	    } else {
