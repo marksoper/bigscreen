@@ -45,11 +45,8 @@ var FLICKR_PER_PAGE = 100;
 var SHOW_DIV_ID = "mainShow";
 var INIT_SHOW_HTML = '<img src="http://farm6.static.flickr.com/5258/5480682306_d1eed449f4_b.jpg">';
 
-alert(bigscreenDEBUG);
-if (typeof bigscreenDEBUG == 'undefined') {
-    var bigscreenDEBUG = false;
-}
-var DEBUG = bigscreenDEBUG;
+
+
 
 
 /* ------------------------------------------------- */
@@ -184,6 +181,10 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
 	},  */
     prepare : function() {
+	if (typeof bigscreenDEBUG == 'undefined') {
+            var bigscreenDEBUG = false;
+        }
+        var DEBUG = bigscreenDEBUG;
 	if (DEBUG) {
             alert(getTime().toGMTString() + " | " + "Show.prepare");
 	    $("#bigscreenLog").append(getTime().toGMTString() + " | " + "Show.prepare");
