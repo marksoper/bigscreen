@@ -107,6 +107,7 @@ PhotoLoader.prototype = {
 function FlickrLoader(url, params) {
     PhotoLoader.call(this);
     this.url = url;
+    this.page = 1;
     this.params = params;
     if (!('per_page' in this.params)) {
 	this.params['per_page'] = Math.min(Math.floor(Math.random()+0.5)*FLICKR_PER_PAGE,490);
@@ -116,6 +117,7 @@ function FlickrLoader(url, params) {
 
 FlickrLoader.prototype = {
     url : null,
+    page : null,
     params : {},
     buildUrl : function(flickr_photo) {
 	return "http://farm" + flickr_photo.farm + ".static.flickr.com/" + flickr_photo.server + "/" + flickr_photo.id + "_" + flickr_photo.secret + "_b_d.jpg";
@@ -127,13 +129,11 @@ FlickrLoader.prototype = {
 	return photo;
     },
     get : function(show,callback) {
-        this.ready = false;
 	thisloader = this;
-        /* random per_page value used because Flickr seems to have a bug in api           where results occasionally don't return.  Changing the per_page value often fixes the problem, inexplicably */
-        /* $.get(this.url, {"method":this.method,"api_key":this.api_key,"format":this.format,"user_id":this.user_id,"tags":this.tags,"per_page":Math.min((Math.random()+0.5)*FLICKR_PER_PAGE,490),"extras":"o_dims"}, */
 	if (window.debug) {
 	    dbug.log("request data from " + this.url + this.params);
 	}
+	this.params["page"] = this.page + 1;
         $.get(this.url, this.params,
             function(data) {
 	        if (window.debug) {
@@ -187,6 +187,7 @@ function Show(loader,divId,debugFlag) {
     this.prepared = false;
     this.running = false;
     this.debug = debugFlag;
+    this.initFetchRequested = false;
     window.debug = this.debug;
     if (window.debug) {
 	dbug.start();	
@@ -207,6 +208,7 @@ Show.prototype = {
     prepared : false,
     running : false,
     debug : false,
+    initFetchRequested : false,
     /*    initPage : function() {
         $('#'+SHOW_DIV_ID).html(INIT_SHOW_HTML);
     },
@@ -223,6 +225,7 @@ Show.prototype = {
     },
     fetchPhotos : function() {
 	this.loader.get(this,this.onboardPhotos);
+	this.initFetchRequested = true;
     },
     onboardPhotos : function() {   /* callback from the loader upon getting data */
 	this.photos = this.loader.photos;
@@ -282,7 +285,7 @@ Show.prototype = {
 	$(screen).addClass("visible").removeClass("hidden");
     },
     advance : function() {
-	if (this.index == 0 & this.screenSequence == 0) {  /* initial page load */
+	if (!(this.initFetchRequested)) {  /* initial page load */
 	    this.fetchPhotos();
         } else {
 	    if (this.index <= this.screenSequence) {
