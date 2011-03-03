@@ -181,6 +181,7 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
 	},  */
     prepare : function() {
+        alert(bigscreenDEBUG);
 	if (typeof bigscreenDEBUG == 'undefined') {
             var bigscreenDEBUG = false;
         }
