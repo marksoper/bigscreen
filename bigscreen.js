@@ -227,6 +227,12 @@ Show.prototype = {
     onboardPhotos : function() {
 	this.photos = this.loader.photos;
 	this.shufflePhotos();
+	if (!(this.index)) {   /* handle initial screen */
+	    var screen = this.getNextScreen()
+	    if (screen) {
+		this.showNextScreen(screen);
+            }
+        }
     },
     start : function() {
 
