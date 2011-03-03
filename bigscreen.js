@@ -288,11 +288,10 @@ Show.prototype = {
 	    if (screen) {
 		thisshow.showNextScreen(screen);
             }
+        timer = setTimeout(function() {
 	    if (thisshow.running) {
                 thisshow.advance();
 	    }
-
-        timer = setTimeout(function() {
         }, DEFAULT_DELAY);
     },
     shufflePhotos : function() {
