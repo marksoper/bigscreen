@@ -63,7 +63,7 @@ Debug.prototype = {
     }
 }
 
-var debug = Debug();
+var debug = new Debug();
 
 
 
