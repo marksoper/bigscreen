@@ -183,7 +183,7 @@ Show.prototype = {
 	},  */
     prepare : function() {
 	if (DEBUG) {
-            alert(getTime().toGMTString() + " | " + "Show.prepare");
+            
 	    $("#bigscreenLog").append(getTime().toGMTString() + " | " + "Show.prepare");
         }
 	this.prepared = true;
@@ -197,10 +197,8 @@ Show.prototype = {
     },
     start : function() {
 
-	alert(this.running + " , " + this.prepared);
-
-	if (!this.running) {
-	    if (!this.prepared) {
+	if (!(this.running)) {
+	    if (!(this.prepared)) {
 	        this.prepare();
 	    }
 	    if (DEBUG) {
