@@ -196,6 +196,9 @@ Show.prototype = {
 	this.shufflePhotos();
     },
     start : function() {
+
+	alert(this.running + " , " + this.prepared);
+
 	if (!this.running) {
 	    if (!this.prepared) {
 	        this.prepare();
