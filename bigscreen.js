@@ -219,6 +219,7 @@ Show.prototype = {
 	if (window.debug) {
 	    dbug.log("Show.prepare");
         }
+	this.fetchPhotos();
 	this.prepared = true;
     },
     fetchPhotos : function() {
@@ -261,21 +262,16 @@ Show.prototype = {
 	this.div.html('');
     },
     makeScreen : function(photo) {
-	if (this.photos.length >= 1) {
-	    var screen = new Screen("screen" + this.screenSequence,[this.photos[0]]);
-	    this.screenSequence++;
-	    screen.content = '<div class="screenDiv" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
-	    this.screens.push(screen);
-	    return screen;
-        } else {
-	    this.fetchPhotos();
-	    return false;
-        }
+	this.screenSequence++;
+	var screen = new Screen(this.screenSequence, photo);
+	screen.content = '<div class="screenDiv" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
+	return screen;
     },
     insertScreen : function(screen) {  
 	if (window.debug) {
 	    dbug.log("insertScreen screen" + screen.id + " | " + screen.photos[0].url);
         }
+	this.screens.push(screen);
 	this.div.html(this.div.html() + screen.content);
     },
     displayScreen : function(index) {
