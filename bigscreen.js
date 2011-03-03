@@ -232,7 +232,7 @@ Show.prototype = {
     },
     insertScreens : function() {
 	for (var i = 0; i < this.photos.length; i++) {
-	    var screen = this.makeScreen(photo);
+	    var screen = this.makeScreen(photos[i]);
 	    this.photos.shift();
 	    this.insertScreen(screen,false);
 	}
