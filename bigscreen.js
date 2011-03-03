@@ -56,10 +56,10 @@ Debug.prototype = {
     start : function() {
 	this.running = true;
 	this.initTime = (new Date).getTime();
-	$("#bigscreenLog").append(0.00 + " | debug started");
+	$("#bigscreenLog").append(0.00 + " | debug started<br>");
     },
     log : function(msg) {
-	$("#bigscreenLog").append((new Date).getTime() - this.initTime + " | " + msg);
+	$("#bigscreenLog").append((new Date).getTime() - this.initTime + " | " + msg + <br>);
     }
 }
 
@@ -207,9 +207,7 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
 	},  */
     prepare : function() {
-        alert(window.debug);
 	if (window.debug) {
-            alert((new Date).toGMTString() + " | " + "Show.prepare");
 	    dbug.log((new Date).getTime() - this + " | " + "Show.prepare");
         }
 	this.prepared = true;
