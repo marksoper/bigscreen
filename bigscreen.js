@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 
 var DEFAULT_DELAY = 6500;
-var FLICKR_PER_PAGE = 100;
+var FLICKR_PER_PAGE = 10;
 var SHOW_DIV_ID = "mainShow";
 var INIT_SHOW_HTML = '<img src="http://farm6.static.flickr.com/5258/5480682306_d1eed449f4_b.jpg">';
 
@@ -219,7 +219,6 @@ Show.prototype = {
 	if (window.debug) {
 	    dbug.log("Show.prepare");
         }
-	this.fetchPhotos();
 	this.prepared = true;
     },
     fetchPhotos : function() {
