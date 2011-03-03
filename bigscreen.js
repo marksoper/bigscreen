@@ -56,10 +56,10 @@ Debug.prototype = {
     start : function() {
 	this.running = true;
 	this.initTime = (new Date).getTime();
-	$("#bigscreenDebug").append(0.00 + " | debug started");
+	$("#bigscreenLog").append(0.00 + " | debug started");
     },
     log : function(msg) {
-	$("#bigscreenDebug").append((new Date).getTime() - this.initTime + " | " + msg);
+	$("#bigscreenLog").append((new Date).getTime() - this.initTime + " | " + msg);
     }
 }
 
