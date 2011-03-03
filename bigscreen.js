@@ -224,15 +224,18 @@ Show.prototype = {
     fetchPhotos : function() {
 	this.loader.get(this,this.onboardPhotos);
     },
-    onboardPhotos : function() {
+    onboardPhotos : function() {   /* callback from the loader upon getting data */
 	this.photos = this.loader.photos;
 	this.shufflePhotos();
-	if (this.index == 0) {   /* handle initial screen */
-	    var screen = this.getNextScreen()
-	    if (screen) {
-		this.showNextScreen(screen);
-            }
-        }
+	dbug.log("onboarding " + this.photos.length + " photos into " + this.photos.length + " screens");
+	this.insertScreens(this.photos);
+    },
+    insertScreens : function() {
+	for (var i = 0; i < this.photos.length; i++) {
+	    var screen = this.makeScreen(photo);
+	    this.photos.shift();
+	    this.insertScreen(screen,false);
+	}
     },
     start : function() {
 
@@ -257,12 +260,11 @@ Show.prototype = {
 	this.screens = [];
 	this.div.html('');
     },
-    makeNewScreen : function() {
+    makeScreen : function(photo) {
 	if (this.photos.length >= 1) {
 	    var screen = new Screen("screen" + this.screenSequence,[this.photos[0]]);
-	    this.photos.shift();
 	    this.screenSequence++;
-	    screen.content = '<div class="screenDiv"><img class="screenImg visible" id="' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
+	    screen.content = '<div class="screenDiv" id="screenDiv' + screen.id '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
 	    this.screens.push(screen);
 	    return screen;
         } else {
@@ -270,36 +272,25 @@ Show.prototype = {
 	    return false;
         }
     },
-    getNextScreen : function() {
-        if (this.index < this.screens.length - 1) {
-	    this.index++;
-	    if (this.index >= this.screens.length - 1) {
-	        this.makeNewScreen();  /* to prep for next cycle - needs error handling */
-            }
-	    return this.screens[this.index-1];
-        } else {
-	    var screen = this.makeNewScreen();
-	    if (screen) {
-                return screen;
-            } else {
-   	        return false;
-            }
-        }
-    },
-    showNextScreen : function(screen) {
-	this.div.children(".screenDiv").addClass("hidden").removeClass("visible");
-	this.div.html(this.div.html() + screen.content);
-	liveImg = $('#'+screen.id);
+    insertScreen : function(screen) {  
 	if (window.debug) {
-	    dbug.log("screen " + screen.id + " - " + screen.photos[0].url);
+	    dbug.log("insertScreen screen" + screen.id + " | " + screen.photos[0].url);
         }
+	this.div.html(this.div.html() + screen.content);
+    },
+    displayScreen : function(index) {
+	screen = $("#screen"+index);
+	(".screenDiv").addClass("hidden").removeClass("visible");
+	screen.addClass("visible").removeClass("hidden");
     },
     advance : function() {
+	if (this.index <= this.screenSequence) {
+	    this.displayScreen(this.index);
+	    this.index++;
+	} else {
+	    this.fetchPhotos();
+        }
         var thisshow = this;
-	    var screen = thisshow.getNextScreen()
-	    if (screen) {
-		thisshow.showNextScreen(screen);
-            }
         timer = setTimeout(function() {
 	    if (thisshow.running) {
                 thisshow.advance();
