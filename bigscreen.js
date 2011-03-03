@@ -176,7 +176,7 @@ Show.prototype = {
     screens : null,
     prepared : false,
     running : false,
-    this.debug : false,
+    debug : false,
     /*    initPage : function() {
         $('#'+SHOW_DIV_ID).html(INIT_SHOW_HTML);
     },
