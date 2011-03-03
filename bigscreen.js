@@ -181,6 +181,7 @@ function Show(loader,divId,debugFlag) {
     this.height = this.div.css("height");
     this.width = this.div.css("width");
     this.index = 0;
+    this.photoIndex = 0;
     this.screenSequence = 0;
     this.screens = [];
     this.photos = [];
@@ -202,6 +203,7 @@ Show.prototype = {
     divId : null,
     div : null,
     index : null,
+    photoIndex : null,
     screenSequence : null,
     photos : null,
     screens : null,
@@ -228,15 +230,15 @@ Show.prototype = {
 	this.initFetchRequested = true;
     },
     onboardPhotos : function() {   /* callback from the loader upon getting data */
-	this.photos = this.loader.photos;
-	this.shufflePhotos();
+	shuffled_photos = shufflePhotos(this.loader.photos);
+	this.photos.push(shuffled_photos);
 	dbug.log("onboarding " + this.photos.length + " photos into " + this.photos.length + " screens");
 	this.insertScreens(this.photos);
     },
     insertScreens : function() {
 	for (var i = 0; i < this.photos.length; i++) {
 	    var screen = this.makeScreen(this.photos[i]);
-	    this.photos.shift();
+	    this.photoIndex++;
 	    this.insertScreen(screen,false);
 	}
     },
@@ -308,17 +310,6 @@ Show.prototype = {
                 thisshow.advance();
 	    }
         }, DEFAULT_DELAY);
-    },
-    shufflePhotos : function() {
-        var i = this.photos.length;
-        if ( i == 0 ) return false;
-        while ( --i ) {
-            var j = Math.floor( Math.random() * ( i + 1 ) );
-            var tempi = this.photos[i];
-            var tempj = this.photos[j];
-            this.photos[i] = tempj;
-            this.photos[j] = tempi;
-        }
     }
 }
 
@@ -332,6 +323,15 @@ function extend(child, supertype) {
 extend(FlickrLoader, PhotoLoader);
 
 
-
-
-
+shufflePhotos : function(photos) {
+    var i = photos.length;
+    if ( i == 0 ) return false;
+    while ( --i ) {
+	var j = Math.floor( Math.random() * ( i + 1 ) );
+	var tempi = photos[i];
+	var tempj = photos[j];
+	photos[i] = tempj;
+	photos[j] = tempi;
+    }
+    return photos
+}
