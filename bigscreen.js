@@ -165,7 +165,7 @@ Screen.prototype = {
 /* ------------------------------------------------- */
 
 
-    function Show(loader,divId,debug) {
+    function Show(loader,divId,debugFlag) {
     this.loader = loader;
     this.divId = divId;
     this.div = $("#"+this.divId);
@@ -177,7 +177,7 @@ Screen.prototype = {
     this.photos = [];
     this.prepared = false;
     this.running = false;
-    this.debug = debug;
+    this.debug = debugFlag;
     window.debug = this.debug;
     if (window.debug) {
 	debug.start();	
