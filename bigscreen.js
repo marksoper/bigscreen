@@ -255,7 +255,7 @@ Show.prototype = {
 	if (this.screenSequence == 1) {    /* hook to handle the initial page load case */
 	    this.displayScreen(0);
 	    if (window.debug) {
-		dbug.log("Show.insertScreen() displaying initial screen" + screen.id + " | " + screen.photos[0].substring(0,20));
+		dbug.log("Show.insertScreen() displaying initial screen" + screen.id + " | " + screen.photos[0].url.substring(0,20));
 	    }   
         }
     },
@@ -287,7 +287,7 @@ Show.prototype = {
 	$(".screenDiv").addClass("hidden").removeClass("visible");
 	$(screenDiv).addClass("visible").removeClass("hidden");
 	if (window.debug) {
-	    dbug.log("Show.displayScreen() displaying screenDiv" + screenDiv.id );
+	    dbug.log("Show.displayScreen() displaying screenDiv" + $(screenDiv).id );
 	}
     },
     advance : function() {
