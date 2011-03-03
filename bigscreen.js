@@ -217,7 +217,7 @@ Show.prototype = {
 	},  */
     prepare : function() {
 	if (window.debug) {
-	    dbug.log("Show.prepare");
+	    dbug.log("Show.prepare()");
         }
 	this.prepared = true;
     },
@@ -260,7 +260,7 @@ Show.prototype = {
 	        this.prepare();
 	    }
 	    if (window.debug) {
-		
+		dbug.log("Show.start()")
             }
 	    this.running = true;
             this.advance();
@@ -282,11 +282,15 @@ Show.prototype = {
 	$(screen).addClass("visible").removeClass("hidden");
     },
     advance : function() {
-	if (this.index <= this.screenSequence) {
-	    this.displayScreen(this.index);
-	    this.index++;
-	} else {
+	if (this.index == 0 and this.screenSequence == 0) {  /* initial page load */
 	    this.fetchPhotos();
+        } else {
+	    if (this.index <= this.screenSequence) {
+	        this.displayScreen(this.index);
+	        this.index++;
+	    } else {
+	        this.fetchPhotos();
+            }
         }
         var thisshow = this;
         timer = setTimeout(function() {
