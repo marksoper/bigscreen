@@ -47,6 +47,7 @@ var INIT_SHOW_HTML = '<img src="http://farm6.static.flickr.com/5258/5480682306_d
 if (typeof bigscreenDEBUG == 'undefined') {
     var bigscreenDEBUG = false;
 }
+var DEBUG = bigscreenDEBUG;
 
 
 /* ------------------------------------------------- */
@@ -181,9 +182,8 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
 	},  */
     prepare : function() {
-	if (bigscreenDEBUG) {
-	    this.div.html(this.div.html() + '<div id="bigscreenDebugDiv" style="overflow:hidden;clear:both;"></div>');
-	    this.debugDiv = $("#bigscreenDebugDiv");
+	if (DEBUG) {
+	    $("#bigscreenLog").append(getTime().toGMTString() + " | " + "Show.prepare");
         }
 	this.prepared = true;
     },
@@ -199,6 +199,9 @@ Show.prototype = {
 	    if (!this.prepared) {
 	        this.prepare();
 	    }
+	    if (DEBUG) {
+		
+            }
 	    this.running = true;
             this.advance();
 	}
@@ -252,7 +255,7 @@ Show.prototype = {
 		liveImg = $('#'+screen.id);
 		/* alert($(liveImg).height() + " x " + $(liveImg).width()); */
 	        
-		if (bigscreenDEBUG) {
+		if (DEBUG) {
 		    thisshow.debugDiv.html(thisshow.debugDiv.html() + "screen " + screen.id + " - " + screen.photos[0].url);
                 }
             }
