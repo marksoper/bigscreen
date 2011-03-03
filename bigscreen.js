@@ -186,7 +186,7 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
 	},  */
     prepare : function() {
-
+        alert(DEBUG);
 	if (DEBUG) {
             alert(getTime().toGMTString() + " | " + "Show.prepare");
 	    $("#bigscreenLog").append(getTime().toGMTString() + " | " + "Show.prepare");
