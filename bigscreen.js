@@ -247,7 +247,7 @@ Show.prototype = {
     },
     insertScreen : function(screen) {  
 	if (window.debug) {
-	    dbug.log("insertScreen() screen" + screen.id + " | " + screen.photos[0].url);
+	    dbug.log("insertScreen() screen" + screen.id + " | " + screen.photos[0].url[0:20]);
         }
 	this.screenSequence++;
 	this.screens.push(screen);
@@ -255,7 +255,7 @@ Show.prototype = {
 	if (this.screenSequence == 1) {    /* hook to handle the initial page load case */
 	    this.displayScreen(0);
 	    if (window.debug) {
-		dbug.log("Show.insertScreen() displaying initial screen" + screen.id + " | " + screen.photos[0].url);
+		dbug.log("Show.insertScreen() displaying initial screen" + screen.id + " | " + screen.photos[0].url[0:20]);
 	    }   
         }
     },
@@ -287,7 +287,7 @@ Show.prototype = {
 	$(".screenDiv").addClass("hidden").removeClass("visible");
 	$(screenDiv).addClass("visible").removeClass("hidden");
 	if (window.debug) {
-	    dbug.log("Show.displayScreen() displaying screenDiv" + screenDiv.css('id') );
+	    dbug.log("Show.displayScreen() displaying screenDiv" + screenDiv.id );
 	}
     },
     advance : function() {
