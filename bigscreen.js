@@ -276,7 +276,7 @@ Show.prototype = {
 	    if (this.index >= this.screens.length - 1) {
 	        this.makeNewScreen();  /* to prep for next cycle - needs error handling */
             }
-	    return this.screens[this.index];
+	    return this.screens[this.index-1];
         } else {
 	    var screen = this.makeNewScreen();
 	    if (screen) {
