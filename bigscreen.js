@@ -211,30 +211,26 @@ Show.prototype = {
     running : false,
     debug : false,
     initFetchRequested : false,
-    /*    initPage : function() {
-        $('#'+SHOW_DIV_ID).html(INIT_SHOW_HTML);
-    },
-    fitToWindow : function() {
-	$(this.div).css({"width" : (window.screen.availWidth - 160) + "px",
-			 "margin" : "20px auto" } );
-	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
-	},  */
+
     prepare : function() {
 	if (window.debug) {
 	    dbug.log("Show.prepare()");
         }
 	this.prepared = true;
     },
+
     fetchPhotos : function() {
 	this.loader.get(this,this.onboardPhotos);
 	this.initFetchRequested = true;
     },
+
     onboardPhotos : function() {   /* callback from the loader upon getting data */
 	shuffled_photos = shufflePhotos(this.loader.photos);
 	this.photos.push.apply(this.photos,shuffled_photos);
 	dbug.log("onboarding " + this.photos.length + " photos into " + this.photos.length + " screens");
 	this.insertScreens(this.photos);
     },
+
     insertScreens : function() {
 	for (var i = 0; i < this.photos.length; i++) {
 	    var screen = this.makeScreen(this.photos[i]);
@@ -242,11 +238,13 @@ Show.prototype = {
 	    this.insertScreen(screen,false);
 	}
     },
+
     makeScreen : function(photo) {
 	var screen = new Screen(this.screenSequence, [photo]);
 	screen.content = '<div class="screenDiv hidden" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
 	return screen;
     },
+
     insertScreen : function(screen) {  
 	if (window.debug) {
 	    dbug.log("insertScreen() screen" + screen.id + " | " + screen.photos[0].url.substring(0,20));
@@ -267,6 +265,7 @@ Show.prototype = {
 	    }   
         }
     },
+
     start : function() {
 
 	if (!(this.running)) {
@@ -280,24 +279,28 @@ Show.prototype = {
             this.advance();
 	}
     },
+
     stop : function() {
 	if (this.running) {
 	    this.running = false;
 	}
     },
+
     reset : function() {
 	this.photos = [];
 	this.screens = [];
 	this.div.html('');
     },
+
     displayScreen : function(index) {
 	screenDiv = $("#screenDiv"+index);
 	$(".screenDiv").addClass("hidden").removeClass("visible");
 	$(screenDiv).addClass("visible").removeClass("hidden");
 	if (window.debug) {
-	    dbug.log("Show.displayScreen() displaying screenDiv" + $(screenDiv).css("id") );
+	    dbug.log("Show.displayScreen() displaying screenDiv" + $(screenDiv).attr("id") );
 	}
     },
+
     advance : function() {
 	if (!(this.initFetchRequested)) {  /* initial page load */
 	    this.fetchPhotos();
