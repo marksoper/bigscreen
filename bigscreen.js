@@ -280,8 +280,8 @@ Show.prototype = {
     },
     displayScreen : function(index) {
 	screen = $("#screen"+index);
-	(".screenDiv").addClass("hidden").removeClass("visible");
-	screen.addClass("visible").removeClass("hidden");
+	$(".screenDiv").addClass("hidden").removeClass("visible");
+	$(screen).addClass("visible").removeClass("hidden");
     },
     advance : function() {
 	if (this.index <= this.screenSequence) {
