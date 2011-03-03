@@ -190,6 +190,7 @@ function Show(loader,divId,debugFlag) {
     this.running = false;
     this.debug = debugFlag;
     this.initFetchRequested = false;
+    this.initFetchReturned = false;
     window.debug = this.debug;
     if (window.debug) {
 	dbug.start();	
@@ -212,7 +213,7 @@ Show.prototype = {
     running : false,
     debug : false,
     initFetchRequested : false,
-
+    initFetchReturned : false,
     prepare : function() {
 	if (window.debug) {
 	    dbug.log("Show.prepare()");
@@ -226,6 +227,7 @@ Show.prototype = {
     },
 
     onboardPhotos : function() {   /* callback from the loader upon getting data */
+	this.initFetchReturned = true;
 	shuffled_photos = shufflePhotos(this.loader.photos);
 	this.photos.push.apply(this.photos,shuffled_photos);
 	dbug.log("onboarding " + this.photos.length + " photos into " + this.photos.length + " screens");
@@ -307,7 +309,7 @@ Show.prototype = {
 	    this.fetchPhotos();
         } else {
 	    if (this.index <= this.screenSequence) {
-		if (this.index <= this.screenSequence - 3) {
+		if ( (this.index <= this.screenSequence - 3) & (this.initFetchReturned) ) {
 		    this.fetchPhotos();
                 }
 	        this.displayScreen(this.index);
