@@ -133,7 +133,7 @@ FlickrLoader.prototype = {
 	if (window.debug) {
 	    dbug.log("request data from " + this.url + this.params);
 	}
-	this.params["page"] = this.page + 1;
+	this.params["page"] = this.page + 1 + '';
         $.get(this.url, this.params,
             function(data) {
 	        if (window.debug) {
@@ -295,7 +295,7 @@ Show.prototype = {
 	$(".screenDiv").addClass("hidden").removeClass("visible");
 	$(screenDiv).addClass("visible").removeClass("hidden");
 	if (window.debug) {
-	    dbug.log("Show.displayScreen() displaying screenDiv" + $(screenDiv).id );
+	    dbug.log("Show.displayScreen() displaying screenDiv" + $(screenDiv).css("id") );
 	}
     },
     advance : function() {
