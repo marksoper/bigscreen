@@ -231,7 +231,7 @@ Show.prototype = {
     },
     onboardPhotos : function() {   /* callback from the loader upon getting data */
 	shuffled_photos = shufflePhotos(this.loader.photos);
-	this.photos.push(shuffled_photos);
+	this.photos.push.apply(this.photos,shuffled_photos);
 	dbug.log("onboarding " + this.photos.length + " photos into " + this.photos.length + " screens");
 	this.insertScreens(this.photos);
     },
