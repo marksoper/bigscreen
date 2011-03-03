@@ -174,7 +174,7 @@ Screen.prototype = {
 /* ------------------------------------------------- */
 
 
-    function Show(loader,divId,debugFlag) {
+function Show(loader,divId,debugFlag) {
     this.loader = loader;
     this.divId = divId;
     this.div = $("#"+this.divId);
@@ -227,7 +227,7 @@ Show.prototype = {
     onboardPhotos : function() {
 	this.photos = this.loader.photos;
 	this.shufflePhotos();
-	if (!(this.index)) {   /* handle initial screen */
+	if (this.index == 0) {   /* handle initial screen */
 	    var screen = this.getNextScreen()
 	    if (screen) {
 		this.showNextScreen(screen);
