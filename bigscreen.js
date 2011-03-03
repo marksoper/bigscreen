@@ -284,7 +284,6 @@ Show.prototype = {
     },
     advance : function() {
         var thisshow = this;
-        timer = setTimeout(function() {
 	    var screen = thisshow.getNextScreen()
 	    if (screen) {
 		thisshow.showNextScreen(screen);
@@ -292,6 +291,8 @@ Show.prototype = {
 	    if (thisshow.running) {
                 thisshow.advance();
 	    }
+
+        timer = setTimeout(function() {
         }, DEFAULT_DELAY);
     },
     shufflePhotos : function() {
