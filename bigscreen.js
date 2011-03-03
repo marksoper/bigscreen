@@ -275,8 +275,8 @@ Show.prototype = {
         }
     },
     showNextScreen : function(screen) {
-	thisshow.div.children(".screenDiv").addClass("hidden").removeClass("visible");
-	thisshow.div.html(thisshow.div.html() + screen.content);
+	this.div.children(".screenDiv").addClass("hidden").removeClass("visible");
+	this.div.html(this.div.html() + screen.content);
 	liveImg = $('#'+screen.id);
 	if (window.debug) {
 	    dbug.log("screen " + screen.id + " - " + screen.photos[0].url);
