@@ -282,7 +282,7 @@ Show.prototype = {
 	$(screen).addClass("visible").removeClass("hidden");
     },
     advance : function() {
-	if (this.index == 0 and this.screenSequence == 0) {  /* initial page load */
+	if (this.index == 0 & this.screenSequence == 0) {  /* initial page load */
 	    this.fetchPhotos();
         } else {
 	    if (this.index <= this.screenSequence) {
