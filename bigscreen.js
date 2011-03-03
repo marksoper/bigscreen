@@ -187,8 +187,8 @@ Show.prototype = {
     prepare : function() {
         alert(window.debug);
 	if (window.debug) {
-            alert((new Date).getTime().toGMTString() + " | " + "Show.prepare");
-	    $("#bigscreenLog").append((new Date).getTime().toGMTString() + " | " + "Show.prepare");
+            alert((new Date).getTime() + " | " + "Show.prepare");
+	    $("#bigscreenLog").append((new Date).getTime() + " | " + "Show.prepare");
         }
 	this.prepared = true;
     },
