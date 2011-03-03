@@ -274,19 +274,20 @@ Show.prototype = {
             }
         }
     },
+    showNextScreen : function(screen) {
+	thisshow.div.children(".screenDiv").addClass("hidden").removeClass("visible");
+	thisshow.div.html(thisshow.div.html() + screen.content);
+	liveImg = $('#'+screen.id);
+	if (window.debug) {
+	    dbug.log("screen " + screen.id + " - " + screen.photos[0].url);
+        }
+    },
     advance : function() {
         var thisshow = this;
         timer = setTimeout(function() {
 	    var screen = thisshow.getNextScreen()
 	    if (screen) {
-		thisshow.div.children(".screenDiv").addClass("hidden").removeClass("visible");
-		thisshow.div.html(thisshow.div.html() + screen.content);
-		liveImg = $('#'+screen.id);
-		/* alert($(liveImg).height() + " x " + $(liveImg).width()); */
-	        
-		if (window.debug) {
-		    dbug.log("screen " + screen.id + " - " + screen.photos[0].url);
-                }
+		thisshow.showNextScreen(screen);
             }
 	    if (thisshow.running) {
                 thisshow.advance();
