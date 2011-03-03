@@ -247,13 +247,16 @@ Show.prototype = {
     },
     insertScreen : function(screen) {  
 	if (window.debug) {
-	    dbug.log("insertScreen screen" + screen.id + " | " + screen.photos[0].url);
+	    dbug.log("insertScreen() screen" + screen.id + " | " + screen.photos[0].url);
         }
 	this.screenSequence++;
 	this.screens.push(screen);
 	this.div.html(this.div.html() + screen.content);
 	if (this.screenSequence == 1) {    /* hook to handle the initial page load case */
 	    this.displayScreen(0);
+	    if (window.debug) {
+		dbug.log("Show.insertScreen() displaying initial screen" + screen.id + " | " + screen.photos[0].url);
+	    }   
         }
     },
     start : function() {
@@ -283,6 +286,9 @@ Show.prototype = {
 	screen = $("#screenDiv"+index);
 	$(".screenDiv").addClass("hidden").removeClass("visible");
 	$(screen).addClass("visible").removeClass("hidden");
+	if (window.debug) {
+	    dbug.log("Show.displayScreen() displaying screen" + screen.id + " | " + screen.photos[0].url);
+	}
     },
     advance : function() {
 	if (!(this.initFetchRequested)) {  /* initial page load */
