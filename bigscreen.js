@@ -323,7 +323,7 @@ function extend(child, supertype) {
 extend(FlickrLoader, PhotoLoader);
 
 
-shufflePhotos : function(photos) {
+function shufflePhotos(photos) {
     var i = photos.length;
     if ( i == 0 ) return false;
     while ( --i ) {
@@ -333,5 +333,5 @@ shufflePhotos : function(photos) {
 	photos[i] = tempj;
 	photos[j] = tempi;
     }
-    return photos
+    return photos;
 }
