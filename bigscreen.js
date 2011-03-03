@@ -264,7 +264,7 @@ Show.prototype = {
 	if (this.photos.length >= 1) {
 	    var screen = new Screen("screen" + this.screenSequence,[this.photos[0]]);
 	    this.screenSequence++;
-	    screen.content = '<div class="screenDiv" id="screenDiv' + screen.id '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
+	    screen.content = '<div class="screenDiv" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
 	    this.screens.push(screen);
 	    return screen;
         } else {
