@@ -208,7 +208,7 @@ Show.prototype = {
 	},  */
     prepare : function() {
 	if (window.debug) {
-	    dbug.log((new Date).getTime() - this + " | " + "Show.prepare");
+	    dbug.log("Show.prepare");
         }
 	this.prepared = true;
     },
