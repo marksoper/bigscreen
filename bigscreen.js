@@ -244,7 +244,7 @@ Show.prototype = {
     },
     makeScreen : function(photo) {
 	var screen = new Screen(this.screenSequence, [photo]);
-	screen.content = '<div class="screenDiv" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
+	screen.content = '<div class="screenDiv hidden" id="screenDiv' + screen.id + '" ><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div>';
 	return screen;
     },
     insertScreen : function(screen) {  
