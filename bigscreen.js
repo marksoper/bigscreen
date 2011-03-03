@@ -254,6 +254,7 @@ Show.prototype = {
 	this.div.html(this.div.html() + screen.content);
 	if (this.screenSequence == 1) {    /* hook to handle the initial page load case */
 	    this.displayScreen(0);
+	    this.index++;
 	    if (window.debug) {
 		dbug.log("Show.insertScreen() displaying initial screen" + screen.id + " | " + screen.photos[0].url.substring(0,20));
 	    }   
