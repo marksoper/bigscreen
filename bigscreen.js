@@ -159,8 +159,7 @@ Screen.prototype = {
     this.prepared = false;
     this.running = false;
     this.debug = debug;
-
-    var DEBUG = this.debug;
+    window.debug = this.debug;
 
     /* this.initPage(); */
     /*this.fitToWindow(); */
@@ -186,8 +185,8 @@ Show.prototype = {
 	$(this.photo).css({"width" : (window.screen.availWidth - 162) + "px"});
 	},  */
     prepare : function() {
-        alert(DEBUG);
-	if (DEBUG) {
+        alert(window.debug);
+	if (window.debug) {
             alert(getTime().toGMTString() + " | " + "Show.prepare");
 	    $("#bigscreenLog").append(getTime().toGMTString() + " | " + "Show.prepare");
         }
@@ -206,7 +205,7 @@ Show.prototype = {
 	    if (!(this.prepared)) {
 	        this.prepare();
 	    }
-	    if (DEBUG) {
+	    if (window.debug) {
 		
             }
 	    this.running = true;
@@ -262,7 +261,7 @@ Show.prototype = {
 		liveImg = $('#'+screen.id);
 		/* alert($(liveImg).height() + " x " + $(liveImg).width()); */
 	        
-		if (DEBUG) {
+		if (window.debug) {
 		    thisshow.debugDiv.html(thisshow.debugDiv.html() + "screen " + screen.id + " - " + screen.photos[0].url);
                 }
             }
