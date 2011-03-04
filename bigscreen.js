@@ -119,9 +119,11 @@ FlickrLoader.prototype = {
     url : null,
     page : null,
     params : {},
+
     buildUrl : function(flickr_photo) {
 	return "http://farm" + flickr_photo.farm + ".static.flickr.com/" + flickr_photo.server + "/" + flickr_photo.id + "_" + flickr_photo.secret + "_b_d.jpg";
     },
+
     buildPhoto : function(flickr_photo) {
 	var photo = new Photo(flickr_photo.id,"Flickr",this.buildUrl(flickr_photo),flickr_photo.owner);
 	photo.originalTitle = flickr_photo.title;
@@ -129,6 +131,7 @@ FlickrLoader.prototype = {
 	photo.originalNotOrientedHeight = flickr_photo.o_height;
 	return photo;
     },
+
     get : function(show,callback) {
 	if (window.debug) {
 	    dbug.log("request data from " + this.url + this.params);
@@ -153,6 +156,33 @@ FlickrLoader.prototype = {
 	        }
 	        callback.call(show);
 	    });
+    },
+
+    getInfoForScreen : function(screen,callback) {
+	var info_params = {"method":"flickr.people.getInfo",
+	                   "format":this.params['format'],
+	                   "api_key":this.params['api_key'],
+	                   "user_id":screen.photos[0].originalOwner};
+	$.get(this.url, info_params,
+	      function(data) {
+	        if (window.debug) {
+	            dbug.log("receive info for screen" + screen.id);
+	        }
+	        data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
+                res = jQuery.parseJSON(data);
+		
+
+
+                flickr_photos = res.photos.photo;
+		photos = [];
+		for (var i = 0; i < thisloader.flickr_photos.length; i++) {
+		    thisloader.photos.push(thisloader.buildPhoto(thisloader.flickr_photos[i]));
+		}
+		if (window.debug) {
+	            dbug.log(thisloader.photos.length + " Photos made from " + this.url + this.params);
+	        }
+	        callback.call(show);
+	    });
     }
 }
 
@@ -169,7 +199,11 @@ function Screen(id,photos) {
 Screen.prototype = {
     id : null,
     photos : null,
-    content : null
+    content : null,
+    
+    insertInfo : function(info) {
+	
+    }
 }
 
 
@@ -215,6 +249,7 @@ Show.prototype = {
     debug : false,
     initFetchRequested : false,
     initFetchReturned : false,
+
     prepare : function() {
 	if (window.debug) {
 	    dbug.log("Show.prepare()");
@@ -248,6 +283,7 @@ Show.prototype = {
 	screen.contentHtml = '<img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" />';
 	screen.aboutHtml = '<div class="screenAboutTitle">' + screen.photos[0].originalTitle + '</div><div class="screenAboutOwner">' + screen.photos[0].originalOwner + '</div>';
 	screen.content = '<div class="screenDiv hidden" id="screenDiv' + screen.id + '" ><div class="screenContent">' + screen.contentHtml + '</div><div class="screenAbout">' + screen.aboutHtml + '</div></div>';
+	this.loader.fetchInfoForScreen(screen,screen.insertInfo);
 	return screen;
     },
 
