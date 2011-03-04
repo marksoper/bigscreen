@@ -124,6 +124,7 @@ FlickrLoader.prototype = {
     },
     buildPhoto : function(flickr_photo) {
 	var photo = new Photo(flickr_photo.id,"Flickr",this.buildUrl(flickr_photo),flickr_photo.owner);
+	photo.originalTitle = flickr_photo.title;
 	photo.originalNotOrientedWidth = flickr_photo.o_width;
 	photo.originalNotOrientedHeight = flickr_photo.o_height;
 	return photo;
@@ -244,7 +245,7 @@ Show.prototype = {
 
     makeScreen : function(photo) {
 	var screen = new Screen(this.screenSequence, [photo]);
-	screen.content = '<div class="screenDiv hidden" id="screenDiv' + screen.id + '" ><div class="screenContent"><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div><div class="screenAbout">about</div></div>';
+	screen.content = '<div class="screenDiv hidden" id="screenDiv' + screen.id + '" ><div class="screenContent"><img class="screenImg" id="screenImg' + screen.id + '" src="' + screen.photos[0].url + '" /></div><div class="screenAbout">' + screen.photos[0].originalTitle + '</div></div>';
 	return screen;
     },
 
