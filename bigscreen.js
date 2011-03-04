@@ -170,8 +170,7 @@ FlickrLoader.prototype = {
 	        }
 	        data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
                 res = jQuery.parseJSON(data);
-		var profile = new Profile();
-		profile
+		
 
 
                 flickr_photos = res.photos.photo;
