@@ -158,7 +158,7 @@ FlickrLoader.prototype = {
 	    });
     },
 
-    getInfoForScreen : function(screen,callback) {
+    fetchInfoForScreen : function(screen,callback) {
 	var info_params = {"method":"flickr.people.getInfo",
 	                   "format":this.params['format'],
 	                   "api_key":this.params['api_key'],
@@ -170,7 +170,8 @@ FlickrLoader.prototype = {
 	        }
 	        data = data.replace(/^jsonFlickrApi\(/,'').replace(/\)$/,'');
                 res = jQuery.parseJSON(data);
-		
+		var profile = new Profile();
+		profile
 
 
                 flickr_photos = res.photos.photo;
